@@ -107,7 +107,7 @@
         </div>
     </div>
 
-    <!-- BAKİYE MODALI (Kredi Kartı Tamamen Kaldırıldı) -->
+    <!-- BAKİYE MODALI -->
     <div class="modal" id="bakiyeModal">
         <div class="modal-box">
             <div class="modal-sidebar">
@@ -120,7 +120,7 @@
                     <div class="modal-header-title" id="formBaslik">Google Play Kodu ile Bakiye Yükle</div>
                     <div class="form-group"><label>Yüklenecek Tutar (TL):</label><input type="number" id="tutarInput" class="form-control" value="25"></div>
                     <div class="form-group"><label id="inputLabel">Google Play Hediye Kodu:</label><input type="text" id="veriInput" class="form-control" placeholder="Hediye kodunu girin"></div>
-                    <small id="formIpucu" style="color: #8888a0; font-size: 11px; margin-top: 6px; display: block;">Lütfen geçerli bir hediye kodu ve tutar girin. Kodun değeri ile girdiğiniz tutar birebir uyuşmalıdır.</small>
+                    <small id="formIpucu" style="color: #ff3366; font-size: 11px; margin-top: 6px; display: block;">⚠️ Rastgele veya geçersiz kodlar kesinlikle kabul edilmez!</small>
                 </div>
                 <div>
                     <button class="btn-action" onclick="kodKontrolEtVeYukle()">Ödemeyi Onayla ve Yükle</button>
@@ -197,6 +197,7 @@
         let kullanilmisKodlar = JSON.parse(localStorage.getItem("flex_guvenlik_kodlari") || "[]");
         const webhookURL = "https://discord.com/api/webhooks/1553399048684445717/sMXeIYkd8rxRF7xQXRuha0swkGF33h_mj7dC8qegf5vQ0ZUVfAfYzald69RVQVKXWhuk";
 
+        // Gerçek kod veritabanı (Sadece bu kodlar çalışır, rastgeleler direkt reddedilir)
         const gecerliHediyeKodlari = {
             "GP99-X7K2-M9Q4": 25,
             "GP88-L3W1-P8N5": 50,
@@ -317,11 +318,11 @@
             
             discordaSiparisGonder(sonUrun, paket.fiyat);
             document.getElementById("notifBtn").style.display = "flex";
-            alert("🎉 Satın alım başarılı! Discord'a bildirim gönderildi. Sol üstteki '🔔 Sipariş Hazır!' butonuna tıkla.");
+            alert("🎉 Satın alım başarılı! Discord'da yetkililere bildirildi. Sol üstteki '🔔 Sipariş Hazır!' butonuna tıkla.");
         }
 
         function discordaSiparisGonder(urun, fiyat) {
-            const veri = { content: `🚨 **YENİ PREMİUM SCRIPT SATIN ALINDI!**\n👤 **Kullanıcı:** ${aktifKullanici}\n📦 **Ürün:** ${urun}\n💰 **Ödenen:** ${fiyat} TL\n💬 *Discord bildirimi kullanıcıya iletildi ve script detayları teslim edildi.*` };
+            const veri = { content: `🚨 **YENİ PREMİUM SCRIPT SATIN ALINDI!**\n👤 **Kullanıcı:** ${aktifKullanici}\n📦 **Ürün:** ${urun}\n💰 **Ödenen:** ${fiyat} TL` };
             fetch(webhookURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(veri) }).catch(hata => console.log("Discord Hatası:", hata));
         }
 
@@ -349,23 +350,27 @@
                 return; 
             }
 
-            if (kullanilmisKodlar.includes(veri)) {
-                alert("🚨 GÜVENLİK UYARISI: Bu hediye kodu daha önce KULLANILMIŞ! Asla tekrar kullanılamaz.");
+            // KESİN KONTROL 1: Kod sistemdeki veritabanında var mı? (Rastgele metinler buradan geçemez)
+            if (!gecerliHediyeKodlari.hasOwnProperty(veri)) {
+                alert("❌ HATA: Girdiğiniz kod geçersiz, hatalı veya sistemde bulunmuyor!");
                 return;
             }
 
-            if (!gecerliHediyeKodlari[veri]) {
-                alert("❌ GEÇERSİZ KOD: Girdiğiniz kod hatalı veya sistemde bulunmuyor!");
+            // KESİN KONTROL 2: Bu kod daha önce kullanılmış mı?
+            if (kullanilmisKodlar.includes(veri)) {
+                alert("🚨 GÜVENLİK UYARISI: Bu hediye kodu daha önce KULLANILMIŞ! Asla tekrar kullanılamaz.");
                 return;
             }
             
             let kodunGercekDegeri = gecerliHediyeKodlari[veri];
 
+            // KESİN KONTROL 3: Tutar uyuşmazlığı kontrolü (Örn: 100 yazıp 25'lik kod basma engeli)
             if (girilenTutar !== kodunGercekDegeri) {
                 alert("❌ TUTAR UYUŞMAZLIĞI: Girdiğiniz kod tam olarak " + kodunGercekDegeri + " TL değerindedir. Kutuya " + girilenTutar + " TL yazarak bu kodu kullanamazsınız! Lütfen tutarı kodun gerçek değerine (" + kodunGercekDegeri + " TL) eşitleyin.");
                 return;
             }
 
+            // Her şey onaylandıysa kodu kullanıldı olarak kaydet
             kullanilmisKodlar.push(veri);
             localStorage.setItem("flex_guvenlik_kodlari", JSON.stringify(kullanilmisKodlar));
 
