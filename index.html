@@ -320,7 +320,11 @@
                 let paketHTML = "";
                 oyun.paketler.forEach((paket) => {
                     paketHTML += `
-                        <button class="package-btn" onclick="satinAlPaket('${oyun.oyunAdi}', '${oyun.kod}', '${paket.ad}',${paket.fiyat})">
+                        <button class="package-btn satin-al-btn" 
+                            data-oyun="${oyun.oyunAdi}" 
+                            data-kod="${oyun.kod}" 
+                            data-paket="${paket.ad}" 
+                            data-fiyat="${paket.fiyat}">
                             <span>${paket.ad}</span>
                             <span class="package-price">${paket.fiyat} TL</span>
                         </button>
@@ -337,6 +341,17 @@
                         </div>
                     </div>
                 `;
+            });
+
+            // Tıklama olayını güvenli event listener ile bağlıyoruz
+            document.querySelectorAll('.satin-al-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    let oyun = this.getAttribute('data-oyun');
+                    let kod = this.getAttribute('data-kod');
+                    let paket = this.getAttribute('data-paket');
+                    let fiyat = Number(this.getAttribute('data-fiyat'));
+                    satinAlPaket(oyun, kod, paket, fiyat);
+                });
             });
         }
         oyunlariListele(oyunIlanlari);
@@ -448,7 +463,6 @@
         function satinAlPaket(urunAdi, scriptKodu, paketAdi, fiyat) {
             if (!aktifKullanici) { alert("⚠️ Lütfen önce giriş yapın!"); return; }
             
-            // Güncel bakiyeyi hafızadan taze al
             mevcutBakiye = Number(kayitliHesaplar[aktifKullanici].bakiye);
 
             if (mevcutBakiye < fiyat) { 
@@ -481,19 +495,16 @@
                 document.getElementById("inputLabel").innerText = "Kart Bilgileri / Ad Soyad:";
                 document.getElementById("veriInput").placeholder = "Ad Soyad ve Kart Numarası";
                 document.getElementById("formIpucu").innerText = "";
-                tutarInput.disabled = false;
             } else if (yontem === 'GooglePlay') {
                 document.getElementById("formBaslik").innerText = "Google Play Kodu ile Bakiye Yükle";
-                document.getElementById("inputLabel").innerText = "Google Play Hediye Kodu:";
+                document.getElementById("inputLabel").innerText = "Google Play Hediye Kodu (Kodun tutarı eklenecek):";
                 document.getElementById("veriInput").placeholder = "Örn: GPLY-25TL-XXXX-XXXX";
-                document.getElementById("formIpucu").innerText = "Kodun içindeki gerçek tutar (Örn: 25, 50, 100 TL) hesabına otomatik yansır.";
-                tutarInput.value = "25"; // Varsayılan veya kod analiz tutarı
+                document.getElementById("formIpucu").innerText = "Yazdıgın tutar kadar bakiye hesabına geçer.";
             } else if (yontem === 'AppleStore') {
                 document.getElementById("formBaslik").innerText = "Apple Store Kartı ile Bakiye Yükle";
                 document.getElementById("inputLabel").innerText = "Apple Store Hediye Kartı Kodu:";
                 document.getElementById("veriInput").placeholder = "Örn: XXXXXXXXXXXXXXXX";
-                document.getElementById("formIpucu").innerText = "Girilen tutar kadar bakiye cüzdanınıza eklenir.";
-                tutarInput.disabled = false;
+                document.getElementById("formIpucu").innerText = "Yazdıgın tutar cüzdanınıza eklenir.";
             }
         }
 
@@ -508,20 +519,13 @@
             }
 
             let kodGecerliMi = false;
-            if (secilenYontem === 'Kart') { 
-                if (veri.length >= 8) kodGecerliMi = true; 
-            } 
+            if (secilenYontem === 'Kart') { if (veri.length >= 8) kodGecerliMi = true; } 
             else if (secilenYontem === 'GooglePlay') {
                 let temizKod = veri.replace(/[-\s]/g, '');
-                if (temizKod.length >= 10 && !temizKod.startsWith("USED")) { 
-                    kodGecerliMi = true; 
-                    // Eğer kod içinde 25, 50, 100 gibi ibareler varsa otomatik yakalayabiliriz, girilen tutar geçerlidir.
-                }
+                if (temizKod.length >= 10 && !temizKod.startsWith("USED")) { kodGecerliMi = true; }
             } else if (secilenYontem === 'AppleStore') {
                 let temizKod = veri.replace(/[-\s]/g, '');
-                if (temizKod.length >= 10 && !temizKod.includes("EXPIRED")) { 
-                    kodGecerliMi = true; 
-                }
+                if (temizKod.length >= 10 && !temizKod.includes("EXPIRED")) { kodGecerliMi = true; }
             }
 
             if (!kodGecerliMi) { alert("❌ HATA: Bu kod geçersiz veya kullanılamaz!"); return; }
