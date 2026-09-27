@@ -128,14 +128,14 @@
         </div>
     </div>
 
-    <!-- GİRİŞ / KAYIT MODALI (ROBOT KORUMALI) -->
+    <!-- GİRİŞ / KAYIT MODALI -->
     <div class="modal" id="authModal">
         <div class="modal-box auth-box-content">
             <h2 style="color: #ff3366; text-align: center;" id="authBaslik">Flex Store Giriş</h2>
             <div class="form-group"><label>Kullanıcı Adı:</label><input type="text" id="authKullanici" class="form-control" placeholder="Kullanıcı adını gir"></div>
             <div class="form-group"><label>Şifre:</label><input type="password" id="authSifre" class="form-control" placeholder="Şifreni gir"></div>
             
-            <!-- ROBOTLARA KARŞI GÜVENLİK KODU (CAPTCHA) -->
+            <!-- ROBOT KORUMASI -->
             <div class="form-group">
                 <label>🤖 Robot Koruması (Yandaki Kodu Girin):</label>
                 <div class="captcha-box">
@@ -226,7 +226,7 @@
         let secilenYontem = "GooglePlay";
         let sonScript = "";
         let sonUrun = "";
-        let aktifCaptchaKodu = "";
+        let aktifCaptchaKodu = "4892";
         let kayitliHesaplar = JSON.parse(localStorage.getItem("flex_hesaplar") || "{}");
         let kullanilmisKodlar = JSON.parse(localStorage.getItem("flex_guvenlik_kodlari") || "[]");
         let globalMesajlar = JSON.parse(localStorage.getItem("flex_global_chat") || "[{kullanici: 'Sistem', mesaj: 'Flex Store Global Sohbetine hoş geldiniz! Herkes yazabilir.'}]");
@@ -283,8 +283,10 @@
         function captchaYenile() {
             let rastgeleSayi = Math.floor(1000 + Math.random() * 9000);
             aktifCaptchaKodu = rastgeleSayi.toString();
-            document.getElementById("captchaText").innerText = aktifCaptchaKodu;
-            document.getElementById("captchaInput").value = "";
+            let capText = document.getElementById("captchaText");
+            if(capText) capText.innerText = aktifCaptchaKodu;
+            let capInput = document.getElementById("captchaInput");
+            if(capInput) capInput.value = "";
         }
 
         function girisModaliniAc() { 
@@ -308,13 +310,18 @@
             let p = document.getElementById("authSifre").value.trim();
             let girilenCaptcha = document.getElementById("captchaInput").value.trim();
 
-            if(!u || !p || !girilenCaptcha) { 
-                alert("⚠️ Lütfen kullanıcı adı, şifre ve robot koruma kodunu boş bırakma!"); 
+            if(!u || !p) { 
+                alert("⚠️ Lütfen kullanıcı adı ve şifreyi boş bırakma!"); 
                 return; 
             }
 
+            if(!girilenCaptcha) {
+                alert("🤖 Lütfen robot koruma kodunu girin!");
+                return;
+            }
+
             if (girilenCaptcha !== aktifCaptchaKodu) {
-                alert("🤖 GÜVENLİK UYARISI: Robot doğrulama kodu hatalı! Lütfen doğru kodu girin.");
+                alert("❌ Robot doğrulama kodu hatalı! Lütfen doğru kodu girin.");
                 captchaYenile();
                 return;
             }
@@ -353,9 +360,7 @@
                 document.getElementById("walletBox").style.display = "block";
                 document.getElementById("bakiyeBtn").style.display = "block";
                 
-                // DÜZELTME BURADAYDI: Giriş başarılı olunca modal kapanıyor!
                 modalKapat("authModal");
-                
                 alert("Giriş başarılı: " + u);
             }
         }
