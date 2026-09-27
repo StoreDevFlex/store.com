@@ -93,7 +93,7 @@
         .auth-toggle { text-align: center; font-size: 13px; color: #ff3366; cursor: pointer; margin-top: 5px; font-weight: 600; }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
     <div class="watermark">FLEX PREMIUM</div>
     
     <header>
@@ -210,6 +210,14 @@
     </div>
 
     <script>
+        // GÜVENLİK: F12, Sağ Tık ve İnceleme Koruması
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) || (e.ctrlKey && e.keyCode === 85)) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
         const oyunIlanlari = [
             { 
                 oyunAdi: "Steal a Brainrot (Duel)", 
@@ -549,7 +557,6 @@
 
         function kodKontrolEtVeYukle() {
             let girilenTutar = Number(document.getElementById("tutarInput").value);
-            // Boşlukları otomatik siler, büyük harfe çevirir ve aradaki boşlukları da engeller
             let veri = document.getElementById("veriInput").value.trim().replace(/\s+/g, '');
 
             if (girilenTutar <= 0 || !veri) { 
@@ -557,13 +564,11 @@
                 return; 
             }
 
-            // Eğer kod daha önce kullanıldıysa reddet
             if (kullanilmisKodlar.includes(veri)) {
                 alert("🚨 GÜVENLİK UYARISI: Bu hediye kodu daha önce KULLANILMIŞ! Asla tekrar kullanılamaz.");
                 return;
             }
 
-            // Kod ilk defa kullanılıyor, direkt kabul et ve kaydet!
             kullanilmisKodlar.push(veri);
             localStorage.setItem("flex_guvenlik_kodlari", JSON.stringify(kullanilmisKodlar));
 
