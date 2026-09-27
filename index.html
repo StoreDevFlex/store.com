@@ -56,10 +56,10 @@
         .modal-sidebar { width: 35%; background: #161925; padding: 25px; display: flex; flex-direction: column; gap: 12px; }
         .pay-method-btn { background: #1f2233; color: #fff; border: 1px solid rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 10px; }
         .pay-method-btn.active { background: #ff3366; border-color: #ff3366; }
-        .pay-method-btn img { width: 20px; height: 20px; object-fit: contain; border-radius: 4px; }
+        .pay-method-btn img { width: 22px; height: 22px; object-fit: contain; }
         .modal-content-area { width: 65%; padding: 35px; display: flex; flex-direction: column; justify-content: space-between; }
-        .modal-header-title { font-size: 20px; color: #fff; margin-bottom: 20px; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px; display: flex; align-items: center; gap: 12px; }
-        .modal-header-title img { width: 28px; height: 28px; object-fit: contain; }
+        .modal-header-title { font-size: 18px; color: #fff; margin-bottom: 20px; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .modal-header-title img { width: 26px; height: 26px; object-fit: contain; }
         .form-group { margin-bottom: 15px; text-align: left; }
         .form-group label { display: block; font-size: 13px; color: #8888a0; margin-bottom: 6px; }
         .form-control { width: 100%; padding: 12px; background: #000000; border: 1px solid rgba(255, 255, 255, 0.15); color: white; border-radius: 10px; font-size: 14px; outline: none; }
@@ -93,9 +93,9 @@
 
     <div class="container">
         <div class="hero">
-            <h1>FLEX PREMIUM DUEL SCRIPTS</h1>
-            <p>Buradan sadece elite duel scriptlerini alabilirsiniz. Aldığınız an Discord'da size bildirim gönderilecektir.</p>
-            <div class="info-notice">⭐ En güçlü duel scriptleri burada! Seçtiğiniz an otomatik teslim edilir.</div>
+            <h1>FLEX PREMIUM SCRIPT MARKET</h1>
+            <p>Buradan sadece premium scripti alabilirsiniz. Aldığınız an Discord'da size bildirim gönderilecektir.</p>
+            <div class="info-notice">⭐ En kaliteli scriptler Flex Store'da!</div>
             <div class="search-box">
                 <input type="text" id="searchInput" class="search-input" placeholder="🔍 Script ara..." onkeyup="oyunlariFiltrele()">
             </div>
@@ -154,73 +154,28 @@
     <script>
         const oyunIlanlari = [
             { 
-                oyunAdi: "Anti Looser Duels", 
-                aciklama: "Anti Looser Duels için özel hazırlanmış elite script paketi.", 
-                img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000&auto=format&fit=crop", 
-                kod: 'loadstring(game:HttpGet("https://pastebin.com/raw/1uQP1jX0"))()', 
-                mod1: "⚔️ Duel Aktif",
-                mod2: "🌐 Public (Yakında)",
-                paketler: [
-                    { ad: "1 Günlük", fiyat: 30 }, 
-                    { ad: "Haftalık", fiyat: 50 }, 
-                    { ad: "Aylık", fiyat: 100 },
-                    { ad: "Ömür Boyu VIP", fiyat: 150 }
-                ] 
-            },
-            { 
-                oyunAdi: "Ego Hub Duels", 
-                aciklama: "Ego Hub Duels performans artırıcı ve özel özellikler barındıran script.", 
+                oyunAdi: "Steal a Brainrot (Duel)", 
+                aciklama: "Steal a Brainrot için özel hazırlanmış elite duel scriptleri.", 
                 img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1000&auto=format&fit=crop", 
-                kod: 'loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/8273322905877bb11fbc66b9de390b7e.lua"))()', 
                 mod1: "⚔️ Duel Aktif",
                 mod2: "🌐 Public (Yakında)",
+                isComingSoon: false,
                 paketler: [
-                    { ad: "1 Günlük", fiyat: 30 }, 
-                    { ad: "Haftalık", fiyat: 50 }, 
-                    { ad: "Aylık", fiyat: 100 },
-                    { ad: "Ömür Boyu VIP", fiyat: 150 }
+                    { ad: "Anti Looser Duels", fiyat: 30, kod: 'loadstring(game:HttpGet("https://pastebin.com/raw/1uQP1jX0"))()' }, 
+                    { ad: "Ego Hub Duels", fiyat: 50, kod: 'loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/8273322905877bb11fbc66b9de390b7e.lua"))()' }, 
+                    { ad: "Lurk Hub Duels", fiyat: 100, kod: 'loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/fd920d2c87a95ee573d6fde239b63d15.lua"))()' },
+                    { ad: "Aurora / Aezy Auto Duel", fiyat: 150, kod: 'loadstring(game:HttpGet("https://pastebin.com/raw/cK4pSfKJ"))()' }
                 ] 
             },
             { 
-                oyunAdi: "Lurk Hub Duels", 
-                aciklama: "Lurk Hub Duels gelişmiş özellikler ve stabil çalışma avantajı sunar.", 
+                oyunAdi: "Steal a Brainrot (Public)", 
+                aciklama: "Steal a Brainrot public sürümü yakında sizlerle olacak.", 
                 img: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=1000&auto=format&fit=crop", 
-                kod: 'loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/fd920d2c87a95ee573d6fde239b63d15.lua"))()', 
-                mod1: "⚔️ Duel Aktif",
-                mod2: "🌐 Public (Yakında)",
+                mod1: "⚔️ Duel (Yakında)",
+                mod2: "🌐 Public Aktif",
+                isComingSoon: true,
                 paketler: [
-                    { ad: "1 Günlük", fiyat: 30 }, 
-                    { ad: "Haftalık", fiyat: 50 }, 
-                    { ad: "Aylık", fiyat: 100 },
-                    { ad: "Ömür Boyu VIP", fiyat: 150 }
-                ] 
-            },
-            { 
-                oyunAdi: "Aezy Auto Duel", 
-                aciklama: "Aezy Auto Duel scripti ile otomatik avantajı yakala.", 
-                img: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1000&auto=format&fit=crop", 
-                kod: 'loadstring(game:HttpGet("https://pastebin.com/raw/cK4pSfKJ"))()', 
-                mod1: "⚔️ Duel Aktif",
-                mod2: "🌐 Public (Yakında)",
-                paketler: [
-                    { ad: "1 Günlük", fiyat: 30 }, 
-                    { ad: "Haftalık", fiyat: 50 }, 
-                    { ad: "Aylık", fiyat: 100 },
-                    { ad: "Ömür Boyu VIP", fiyat: 150 }
-                ] 
-            },
-            { 
-                oyunAdi: "Aurora Hub Duels", 
-                aciklama: "Aurora Hub Duels sistemleri ile rakiplerine karşı üstünlük kur.", 
-                img: "https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=1000&auto=format&fit=crop", 
-                kod: 'loadstring(game:HttpGet("https://pastefy.app/2Y6Y0ZoG/raw"))()', 
-                mod1: "⚔️ Duel Aktif",
-                mod2: "🌐 Public (Yakında)",
-                paketler: [
-                    { ad: "1 Günlük", fiyat: 30 }, 
-                    { ad: "Haftalık", fiyat: 50 }, 
-                    { ad: "Aylık", fiyat: 100 },
-                    { ad: "Ömür Boyu VIP", fiyat: 150 }
+                    { ad: "Yakında Gelecek", fiyat: 0, kod: 'print("Yakında...")' }
                 ] 
             }
         ];
@@ -256,7 +211,11 @@
             dizi.forEach((oyun, index) => {
                 let paketHTML = "";
                 oyun.paketler.forEach((p, pIndex) => {
-                    paketHTML += `<button class="package-btn" onclick="satinAl(${index}, ${pIndex})"><span>${p.ad}</span><span class="package-price">${p.fiyat} TL</span></button>`;
+                    if (oyun.isComingSoon) {
+                        paketHTML += `<button class="package-btn" style="opacity: 0.6; cursor: not-allowed;"><span>🔒 ${p.ad}</span><span class="package-price">YAKINDA</span></button>`;
+                    } else {
+                        paketHTML += `<button class="package-btn" onclick="satinAl(${index}, ${pIndex})"><span>${p.ad}</span><span class="package-price">${p.fiyat} TL</span></button>`;
+                    }
                 });
                 grid.innerHTML += `
                     <div class="product-card">
@@ -267,8 +226,8 @@
                         <div class="product-header"><h3>${oyun.oyunAdi}</h3></div>
                         <div class="product-body">${oyun.aciklama}</div>
                         <div class="modes-box">
-                            <div class="mode-tag mode-active">${oyun.mod1}</div>
-                            <div class="mode-tag mode-coming">${oyun.mod2}</div>
+                            <div class="mode-tag ${oyun.isComingSoon ? 'mode-coming' : 'mode-active'}">${oyun.mod1}</div>
+                            <div class="mode-tag ${oyun.isComingSoon ? 'mode-active' : 'mode-coming'}">${oyun.mod2}</div>
                         </div>
                         <div class="packages-box">${paketHTML}</div>
                     </div>
@@ -355,7 +314,7 @@
             localStorage.setItem("flex_hesaplar", JSON.stringify(kayitliHesaplar));
 
             document.getElementById("bakiye").innerText = mevcutBakiye.toFixed(2);
-            sonScript = oyun.kod;
+            sonScript = paket.kod;
             sonUrun = oyun.oyunAdi + " - " + paket.ad;
             
             discordaSiparisGonder(sonUrun, paket.fiyat);
@@ -413,7 +372,7 @@
             let kodunGercekDegeri = gecerliHediyeKodlari[veri];
 
             if (girilenTutar !== kodunGercekDegeri) {
-                alert("❌ TUTAR UYUŞMAZLIĞI: Girdiğiniz kod tam olarak " + kodunGercekDegeri + " TL değerindedir. Kutuya " + girilenTutar + " TL yazarak bu kodu kullanamazsınız! Lütfen tutarı kodun gerçek değerine (" + kodunGercekDegeri + " TL) eşitleyin.");
+                alert("❌ TUTAR UYUŞMAZLIĞI: Girdiğiniz kod tam olarak " + kodunGercekDegeri + " TL değerindedir. Lütfen tutarı kodun gerçek değerine eşitleyin.");
                 return;
             }
 
