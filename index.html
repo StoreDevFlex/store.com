@@ -120,7 +120,7 @@
                     <div class="modal-header-title" id="formBaslik">Google Play Kodu ile Bakiye Yükle</div>
                     <div class="form-group"><label>Yüklenecek Tutar (TL):</label><input type="number" id="tutarInput" class="form-control" value="25"></div>
                     <div class="form-group"><label id="inputLabel">Google Play Hediye Kodu:</label><input type="text" id="veriInput" class="form-control" placeholder="Hediye kodunu girin"></div>
-                    <small id="formIpucu" style="color: #ff3366; font-size: 11px; margin-top: 6px; display: block;">⚠️ Rastgele veya geçersiz yazılar kesinlikle reddedilir!</small>
+                    <small id="formIpucu" style="color: #ff3366; font-size: 11px; margin-top: 6px; display: block;">⚠️ Rastgele veya geçersiz kodlar kesinlikle kabul edilmez!</small>
                 </div>
                 <div>
                     <button class="btn-action" onclick="kodKontrolEtVeYukle()">Ödemeyi Onayla ve Yükle</button>
@@ -197,14 +197,14 @@
         let kullanilmisKodlar = JSON.parse(localStorage.getItem("flex_guvenlik_kodlari") || "[]");
         const webhookURL = "https://discord.com/api/webhooks/1553399048684445717/sMXeIYkd8rxRF7xQXRuha0swkGF33h_mj7dC8qegf5vQ0ZUVfAfYzald69RVQVKXWhuk";
 
-        // GİZLİ GERÇEK KOD VERİTABANI (Sadece buradaki kodlar geçerlidir, rastgeleler geçemez)
+        // Gerçek kod veritabanı (Sadece bu kodlar çalışır, rastgeleler direkt reddedilir)
         const gecerliHediyeKodlari = {
-            "GP25-FLX9-TEST": 25,
-            "GP50-FLX8-TEST": 50,
-            "GP100-FLX7-TEST": 100,
-            "AP25-FLX6-TEST": 25,
-            "AP50-FLX5-TEST": 50,
-            "AP100-FLX4-TEST": 100
+            "GP99-X7K2-M9Q4": 25,
+            "GP88-L3W1-P8N5": 50,
+            "GP77-Z5H9-R3T6": 100,
+            "APPL-4K8X-2V7M": 25,
+            "APPL-9J2C-6B1F": 50,
+            "APPL-3H5D-8N4K": 100
         };
 
         if (!kayitliHesaplar["FlexAdmin"]) {
@@ -318,7 +318,7 @@
             
             discordaSiparisGonder(sonUrun, paket.fiyat);
             document.getElementById("notifBtn").style.display = "flex";
-            alert("🎉 Satın alım başarılı! Discord'da bildirildi. Sol üstteki '🔔 Sipariş Hazır!' butonuna tıkla.");
+            alert("🎉 Satın alım başarılı! Discord'da yetkililere bildirildi. Sol üstteki '🔔 Sipariş Hazır!' butonuna tıkla.");
         }
 
         function discordaSiparisGonder(urun, fiyat) {
@@ -350,13 +350,13 @@
                 return; 
             }
 
-            // KESİN KONTROL 1: Kod sistemdeki veritabanında var mı? (Rastgele yazılar buraya takılır)
+            // KESİN KONTROL 1: Kod sistemdeki veritabanında var mı? (Rastgele metinler buradan geçemez)
             if (!gecerliHediyeKodlari.hasOwnProperty(veri)) {
-                alert("❌ GÜVENLİK ENGELİ: Girdiğiniz kod geçersiz, hatalı veya sistemde bulunmuyor!");
+                alert("❌ HATA: Girdiğiniz kod geçersiz, hatalı veya sistemde bulunmuyor!");
                 return;
             }
 
-            // KESİN KONTROL 2: Daha önce kullanılmış mı?
+            // KESİN KONTROL 2: Bu kod daha önce kullanılmış mı?
             if (kullanilmisKodlar.includes(veri)) {
                 alert("🚨 GÜVENLİK UYARISI: Bu hediye kodu daha önce KULLANILMIŞ! Asla tekrar kullanılamaz.");
                 return;
@@ -370,7 +370,7 @@
                 return;
             }
 
-            // Her şey onaylandıysa kodu kullanıldı olarak kaydet ve bakiyeyi yükle
+            // Her şey onaylandıysa kodu kullanıldı olarak kaydet
             kullanilmisKodlar.push(veri);
             localStorage.setItem("flex_guvenlik_kodlari", JSON.stringify(kullanilmisKodlar));
 
