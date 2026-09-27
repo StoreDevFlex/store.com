@@ -41,6 +41,12 @@
         .product-header { padding: 15px 15px 5px 15px; }
         .product-header h3 { font-size: 17px; color: #ff3366; font-weight: 700; }
         .product-body { padding: 5px 15px 15px 15px; color: #8888a0; font-size: 13px; }
+        
+        .modes-box { padding: 0 15px 12px 15px; display: flex; gap: 8px; }
+        .mode-tag { flex: 1; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: bold; text-align: center; }
+        .mode-active { background: rgba(0, 255, 136, 0.15); border: 1px solid rgba(0, 255, 136, 0.4); color: #00ff88; }
+        .mode-coming { background: rgba(255, 153, 51, 0.15); border: 1px solid rgba(255, 153, 51, 0.4); color: #ff9933; }
+
         .packages-box { padding: 0 15px 15px 15px; display: flex; flex-direction: column; gap: 8px; }
         .package-btn { background: #181b28; border: 1px solid rgba(255,255,255,0.08); color: #fff; padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
         .package-btn:hover { background: #ff3366; border-color: #ff3366; }
@@ -50,8 +56,10 @@
         .modal-sidebar { width: 35%; background: #161925; padding: 25px; display: flex; flex-direction: column; gap: 12px; }
         .pay-method-btn { background: #1f2233; color: #fff; border: 1px solid rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 10px; }
         .pay-method-btn.active { background: #ff3366; border-color: #ff3366; }
+        .pay-method-btn img { width: 20px; height: 20px; object-fit: contain; border-radius: 4px; }
         .modal-content-area { width: 65%; padding: 35px; display: flex; flex-direction: column; justify-content: space-between; }
-        .modal-header-title { font-size: 20px; color: #fff; margin-bottom: 20px; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px; }
+        .modal-header-title { font-size: 20px; color: #fff; margin-bottom: 20px; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px; display: flex; align-items: center; gap: 12px; }
+        .modal-header-title img { width: 28px; height: 28px; object-fit: contain; }
         .form-group { margin-bottom: 15px; text-align: left; }
         .form-group label { display: block; font-size: 13px; color: #8888a0; margin-bottom: 6px; }
         .form-control { width: 100%; padding: 12px; background: #000000; border: 1px solid rgba(255, 255, 255, 0.15); color: white; border-radius: 10px; font-size: 14px; outline: none; }
@@ -85,11 +93,11 @@
 
     <div class="container">
         <div class="hero">
-            <h1>FLEX PREMIUM SCRIPT MARKET</h1>
-            <p>Buradan sadece premium scripti alabilirsiniz. Aldığınız an Discord'da size bildirim gönderilecektir, script hakkında...</p>
-            <div class="info-notice">⭐ Buradan sadece premium scripti alabilirsiniz. Aldıgınız an Discord'da size bildirim gönderilecektir, script hakkında...</div>
+            <h1>FLEX PREMIUM DUEL SCRIPTS</h1>
+            <p>Buradan sadece elite duel scriptlerini alabilirsiniz. Aldığınız an Discord'da size bildirim gönderilecektir.</p>
+            <div class="info-notice">⭐ En güçlü duel scriptleri burada! Seçtiğiniz an otomatik teslim edilir.</div>
             <div class="search-box">
-                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Oyun ara..." onkeyup="oyunlariFiltrele()">
+                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Script ara..." onkeyup="oyunlariFiltrele()">
             </div>
         </div>
         <div class="products-grid" id="productGrid"></div>
@@ -112,13 +120,16 @@
         <div class="modal-box">
             <div class="modal-sidebar">
                 <h3 style="color:#888; font-size:12px; margin-bottom:10px;">ÖDEME YÖNTEMLERİ</h3>
-                <button class="pay-method-btn active" onclick="yontemSec('GooglePlay', this)">🎮 Google Play Kodu</button>
-                <button class="pay-method-btn" onclick="yontemSec('AppleStore', this)">🍏 Apple Store Kartı</button>
+                <button class="pay-method-btn active" onclick="yontemSec('GooglePlay', this)"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Logo_2022.svg" alt="GP"> Google Play Kodu</button>
+                <button class="pay-method-btn" onclick="yontemSec('AppleStore', this)"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" style="filter: invert(1);"> Apple Store Kartı</button>
             </div>
             <div class="modal-content-area">
                 <div>
-                    <div class="modal-header-title" id="formBaslik">Google Play Kodu ile Bakiye Yükle</div>
-                    <div class="form-group"><label>Yüklenecek Tutar (TL):</label><input type="number" id="tutarInput" class="form-control" value="25"></div>
+                    <div class="modal-header-title" id="formBaslik">
+                        <img id="headerLogoImg" src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Logo_2022.svg" alt="Logo">
+                        <span id="headerTitleText">Google Play Kodu ile Bakiye Yükle</span>
+                    </div>
+                    <div class="form-group"><label>Yüklenecek Tutar (TL):</label><input type="number" id="tutarInput" class="form-control" value="30"></div>
                     <div class="form-group"><label id="inputLabel">Google Play Hediye Kodu:</label><input type="text" id="veriInput" class="form-control" placeholder="Hediye kodunu girin"></div>
                     <small id="formIpucu" style="color: #ff3366; font-size: 11px; margin-top: 6px; display: block;">⚠️ Rastgele veya geçersiz kodlar kesinlikle kabul edilmez!</small>
                 </div>
@@ -143,47 +154,73 @@
     <script>
         const oyunIlanlari = [
             { 
-                oyunAdi: "Blox Fruits (Flex Premium Hub)", 
-                aciklama: "Buradan sadece premium scripti alabilirsiniz. Aldığınız an Discord'da size bildirim gönderilecektir.", 
+                oyunAdi: "Anti Looser Duels", 
+                aciklama: "Anti Looser Duels için özel hazırlanmış elite script paketi.", 
                 img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000&auto=format&fit=crop", 
-                kod: "loadstring(game:HttpGet('https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9992.lua'))()", 
+                kod: 'loadstring(game:HttpGet("https://pastebin.com/raw/1uQP1jX0"))()', 
+                mod1: "⚔️ Duel Aktif",
+                mod2: "🌐 Public (Yakında)",
                 paketler: [
-                    { ad: "1 Günlük (Başlangıç)", fiyat: 30 }, 
-                    { ad: "Haftalık (Gelişmiş)", fiyat: 70 }, 
-                    { ad: "Ömür Boyu VIP (En İyi)", fiyat: 150 }
+                    { ad: "1 Günlük", fiyat: 30 }, 
+                    { ad: "Haftalık", fiyat: 50 }, 
+                    { ad: "Aylık", fiyat: 100 },
+                    { ad: "Ömür Boyu VIP", fiyat: 150 }
                 ] 
             },
             { 
-                oyunAdi: "Steal a Brainrot (Flex Premium)", 
-                aciklama: "Buradan sadece premium scripti alabilirsiniz. Aldığınız an Discord'da size bildirim gönderilecektir.", 
+                oyunAdi: "Ego Hub Duels", 
+                aciklama: "Ego Hub Duels performans artırıcı ve özel özellikler barındıran script.", 
                 img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1000&auto=format&fit=crop", 
-                kod: "loadstring(game:HttpGet('https://raw.githubusercontent.com/Erchobloox/RobloxScripts/main/BrainrotSteal.lua'))()", 
+                kod: 'loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/8273322905877bb11fbc66b9de390b7e.lua"))()', 
+                mod1: "⚔️ Duel Aktif",
+                mod2: "🌐 Public (Yakında)",
                 paketler: [
-                    { ad: "1 Günlük (Başlangıç)", fiyat: 25 }, 
-                    { ad: "Haftalık (Gelişmiş)", fiyat: 60 }, 
-                    { ad: "Ömür Boyu VIP (En İyi)", fiyat: 130 }
+                    { ad: "1 Günlük", fiyat: 30 }, 
+                    { ad: "Haftalık", fiyat: 50 }, 
+                    { ad: "Aylık", fiyat: 100 },
+                    { ad: "Ömür Boyu VIP", fiyat: 150 }
                 ] 
             },
             { 
-                oyunAdi: "Brookhaven (Flex Premium)", 
-                aciklama: "Buradan sadece premium scripti alabilirsiniz. Aldığınız an Discord'da size bildirim gönderilecektir.", 
+                oyunAdi: "Lurk Hub Duels", 
+                aciklama: "Lurk Hub Duels gelişmiş özellikler ve stabil çalışma avantajı sunar.", 
                 img: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=1000&auto=format&fit=crop", 
-                kod: "loadstring(game:HttpGet('https://raw.githubusercontent.com/XTheOnlyTrue/Brookhaven/main/GUI.lua'))()", 
+                kod: 'loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/fd920d2c87a95ee573d6fde239b63d15.lua"))()', 
+                mod1: "⚔️ Duel Aktif",
+                mod2: "🌐 Public (Yakında)",
                 paketler: [
-                    { ad: "1 Günlük (Başlangıç)", fiyat: 20 }, 
-                    { ad: "Haftalık (Gelişmiş)", fiyat: 50 }, 
-                    { ad: "Ömür Boyu VIP (En İyi)", fiyat: 100 }
+                    { ad: "1 Günlük", fiyat: 30 }, 
+                    { ad: "Haftalık", fiyat: 50 }, 
+                    { ad: "Aylık", fiyat: 100 },
+                    { ad: "Ömür Boyu VIP", fiyat: 150 }
                 ] 
             },
             { 
-                oyunAdi: "Murder Mystery 2 (Flex Premium)", 
-                aciklama: "Buradan sadece premium scripti alabilirsiniz. Aldığınız an Discord'da size bildirim gönderilecektir.", 
+                oyunAdi: "Aezy Auto Duel", 
+                aciklama: "Aezy Auto Duel scripti ile otomatik avantajı yakala.", 
                 img: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1000&auto=format&fit=crop", 
-                kod: "loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()", 
+                kod: 'loadstring(game:HttpGet("https://pastebin.com/raw/cK4pSfKJ"))()', 
+                mod1: "⚔️ Duel Aktif",
+                mod2: "🌐 Public (Yakında)",
                 paketler: [
-                    { ad: "1 Günlük (Başlangıç)", fiyat: 30 }, 
-                    { ad: "Haftalık (Gelişmiş)", fiyat: 65 }, 
-                    { ad: "Ömür Boyu VIP (En İyi)", fiyat: 140 }
+                    { ad: "1 Günlük", fiyat: 30 }, 
+                    { ad: "Haftalık", fiyat: 50 }, 
+                    { ad: "Aylık", fiyat: 100 },
+                    { ad: "Ömür Boyu VIP", fiyat: 150 }
+                ] 
+            },
+            { 
+                oyunAdi: "Aurora Hub Duels", 
+                aciklama: "Aurora Hub Duels sistemleri ile rakiplerine karşı üstünlük kur.", 
+                img: "https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=1000&auto=format&fit=crop", 
+                kod: 'loadstring(game:HttpGet("https://pastefy.app/2Y6Y0ZoG/raw"))()', 
+                mod1: "⚔️ Duel Aktif",
+                mod2: "🌐 Public (Yakında)",
+                paketler: [
+                    { ad: "1 Günlük", fiyat: 30 }, 
+                    { ad: "Haftalık", fiyat: 50 }, 
+                    { ad: "Aylık", fiyat: 100 },
+                    { ad: "Ömür Boyu VIP", fiyat: 150 }
                 ] 
             }
         ];
@@ -197,14 +234,15 @@
         let kullanilmisKodlar = JSON.parse(localStorage.getItem("flex_guvenlik_kodlari") || "[]");
         const webhookURL = "https://discord.com/api/webhooks/1553399048684445717/sMXeIYkd8rxRF7xQXRuha0swkGF33h_mj7dC8qegf5vQ0ZUVfAfYzald69RVQVKXWhuk";
 
-        // Gerçek kod veritabanı (Sadece bu kodlar çalışır, rastgeleler direkt reddedilir)
         const gecerliHediyeKodlari = {
-            "GP99-X7K2-M9Q4": 25,
+            "GP99-X7K2-M9Q4": 30,
             "GP88-L3W1-P8N5": 50,
             "GP77-Z5H9-R3T6": 100,
-            "APPL-4K8X-2V7M": 25,
+            "GP66-A1B2-C3D4": 150,
+            "APPL-4K8X-2V7M": 30,
             "APPL-9J2C-6B1F": 50,
-            "APPL-3H5D-8N4K": 100
+            "APPL-3H5D-8N4K": 100,
+            "APPL-1E2R-3T4Y": 150
         };
 
         if (!kayitliHesaplar["FlexAdmin"]) {
@@ -228,6 +266,10 @@
                         </div>
                         <div class="product-header"><h3>${oyun.oyunAdi}</h3></div>
                         <div class="product-body">${oyun.aciklama}</div>
+                        <div class="modes-box">
+                            <div class="mode-tag mode-active">${oyun.mod1}</div>
+                            <div class="mode-tag mode-coming">${oyun.mod2}</div>
+                        </div>
                         <div class="packages-box">${paketHTML}</div>
                     </div>
                 `;
@@ -333,11 +375,19 @@
             document.querySelectorAll('.pay-method-btn').forEach(b => b.classList.remove('active'));
             element.classList.add('active');
             let label = document.getElementById("inputLabel");
+            let headerText = document.getElementById("headerTitleText");
+            let headerLogo = document.getElementById("headerLogoImg");
 
             if (yontem === 'GooglePlay') {
                 label.innerText = "Google Play Hediye Kodu:";
+                headerText.innerText = "Google Play Kodu ile Bakiye Yükle";
+                headerLogo.src = "https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Logo_2022.svg";
+                headerLogo.style.filter = "none";
             } else if (yontem === 'AppleStore') {
                 label.innerText = "Apple Store Hediye Kartı Kodu:";
+                headerText.innerText = "Apple Store Kartı ile Bakiye Yükle";
+                headerLogo.src = "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg";
+                headerLogo.style.filter = "invert(1)";
             }
         }
 
@@ -350,13 +400,11 @@
                 return; 
             }
 
-            // KESİN KONTROL 1: Kod sistemdeki veritabanında var mı? (Rastgele metinler buradan geçemez)
             if (!gecerliHediyeKodlari.hasOwnProperty(veri)) {
                 alert("❌ HATA: Girdiğiniz kod geçersiz, hatalı veya sistemde bulunmuyor!");
                 return;
             }
 
-            // KESİN KONTROL 2: Bu kod daha önce kullanılmış mı?
             if (kullanilmisKodlar.includes(veri)) {
                 alert("🚨 GÜVENLİK UYARISI: Bu hediye kodu daha önce KULLANILMIŞ! Asla tekrar kullanılamaz.");
                 return;
@@ -364,13 +412,11 @@
             
             let kodunGercekDegeri = gecerliHediyeKodlari[veri];
 
-            // KESİN KONTROL 3: Tutar uyuşmazlığı kontrolü (Örn: 100 yazıp 25'lik kod basma engeli)
             if (girilenTutar !== kodunGercekDegeri) {
                 alert("❌ TUTAR UYUŞMAZLIĞI: Girdiğiniz kod tam olarak " + kodunGercekDegeri + " TL değerindedir. Kutuya " + girilenTutar + " TL yazarak bu kodu kullanamazsınız! Lütfen tutarı kodun gerçek değerine (" + kodunGercekDegeri + " TL) eşitleyin.");
                 return;
             }
 
-            // Her şey onaylandıysa kodu kullanıldı olarak kaydet
             kullanilmisKodlar.push(veri);
             localStorage.setItem("flex_guvenlik_kodlari", JSON.stringify(kullanilmisKodlar));
 
