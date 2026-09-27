@@ -17,16 +17,15 @@
         .wallet-box span { color: #00ff88; font-weight: bold; }
         .btn-bakiye { background: #ff3366; color: white; border: none; padding: 10px 18px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 13px; display: none; }
         .btn-google { background: #ffffff; color: #111111; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 13px; display: flex; align-items: center; gap: 10px; }
-        .user-profile-box { display: none; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05); padding: 6px 14px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); font-size: 13px; }
-        
-        .user-avatar-icon { width: 28px; height: 28px; border-radius: 50%; background: #ff3366; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; font-size: 14px; border: 1px solid rgba(255,255,255,0.2); }
-
+        .user-profile-box { display: none; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05); padding: 6px 14px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); font-size: 13px; cursor: pointer; }
+        .user-profile-box img { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #ff3366; object-fit: cover; }
         .role-badge { padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; text-transform: uppercase; }
-        .role-admin { background: #ff3366; color: #fff; text-shadow: 0 0 8px #fff; }
+        .role-admin { background: #ff3366; color: #fff; }
         .role-member { background: rgba(0, 255, 136, 0.1); color: #00ff88; border: 1px solid rgba(0, 255, 136, 0.3); }
         .notification-bell { position: relative; background: rgba(0, 255, 136, 0.05); border: 1px solid rgba(0, 255, 136, 0.3); padding: 8px 14px; border-radius: 10px; cursor: pointer; font-size: 13px; display: none; align-items: center; gap: 8px; color: #00ff88; font-weight: bold; }
         .notification-bell span { background: #00ff88; color: #0b0c10; padding: 2px 6px; border-radius: 50%; font-size: 11px; }
         
+        /* SOHBET AÇMA BUTONU */
         .btn-chat-toggle { background: rgba(255, 51, 102, 0.15); border: 1px solid #ff3366; color: #ff3366; padding: 9px 14px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 13px; display: flex; align-items: center; gap: 6px; }
         .btn-chat-toggle:hover { background: #ff3366; color: #fff; }
 
@@ -34,9 +33,10 @@
         .hero { text-align: center; margin-bottom: 30px; }
         .hero h1 { font-size: 40px; font-weight: 900; margin-bottom: 12px; background: linear-gradient(45deg, #ff3366, #ff9933); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .info-notice { color: #ffcc00; font-size: 15px; font-weight: bold; margin-bottom: 25px; background: rgba(255, 204, 0, 0.1); border: 1px solid rgba(255, 204, 0, 0.3); padding: 12px; border-radius: 10px; display: inline-block; }
-        .search-box { max-width: 500px; margin: 0 auto 30px auto; }
+        .search-box { max-width: 500px; margin: 0 auto 40px auto; }
         .search-input { width: 100%; padding: 14px 20px; background: #12141c; border: 1px solid rgba(255, 255, 255, 0.15); color: white; border-radius: 12px; font-size: 15px; outline: none; text-align: center; }
         
+        /* GLOBAL CHAT MODALI */
         .chat-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
         .chat-box-wrapper { background: #11131c; border: 1px solid rgba(255, 51, 102, 0.4); width: 90%; max-width: 600px; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; }
         .chat-header { font-size: 16px; font-weight: bold; color: #ff3366; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
@@ -70,10 +70,9 @@
         .pay-icon { width: 22px; height: 22px; object-fit: contain; }
         .modal-content-area { width: 65%; padding: 35px; display: flex; flex-direction: column; justify-content: space-between; }
         .modal-header-title { font-size: 20px; color: #fff; margin-bottom: 20px; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px; }
-        .form-group { margin-bottom: 15px; text-align: left; position: relative; }
+        .form-group { margin-bottom: 15px; text-align: left; }
         .form-group label { display: block; font-size: 13px; color: #8888a0; margin-bottom: 6px; }
         .form-control { width: 100%; padding: 12px; background: #000000; border: 1px solid rgba(255, 255, 255, 0.15); color: white; border-radius: 10px; font-size: 14px; outline: none; }
-        .show-pass-btn { position: absolute; right: 12px; top: 34px; background: none; border: none; color: #888; cursor: pointer; font-size: 12px; font-weight: bold; }
         .btn-action { background: #00ff88; color: #000000; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: 900; font-size: 14px; width: 100%; margin-top: 10px; }
         .btn-close-modal { background: transparent; color: #8888a0; border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 10px; cursor: pointer; width: 100%; margin-top: 10px; }
         .script-modal-box { background: #12141c; border: 1px solid rgba(255, 51, 102, 0.4); padding: 30px; border-radius: 16px; width: 90%; max-width: 450px; text-align: center; }
@@ -91,8 +90,8 @@
             <button class="btn-chat-toggle" onclick="sohbetPenceresiniAc()">💬 Sohbeti Aç</button>
             <div class="online-counter"><div class="online-dot"></div> <span>1006</span> Çevrimiçi</div>
             <button class="btn-google" id="googleLoginBtn" onclick="girisModaliniAc()">Giriş Yap / Kayıt Ol</button>
-            <div class="user-profile-box" id="userProfile" style="display:none;">
-                <div class="user-avatar-icon" id="userAvatarLetter">O</div>
+            <div class="user-profile-box" id="userProfile" onclick="profilModaliniAc()">
+                <img id="userAvatarImg" src="https://api.dicebear.com/7.x/bottts/svg?seed=flexuser" alt="Avatar">
                 <span id="userNameDisplay" style="font-weight: bold; color: #fff;">Oyuncu</span>
                 <span id="userRoleBadge" class="role-badge role-member">Üye</span>
             </div>
@@ -107,7 +106,7 @@
         <div class="hero">
             <h1>FLEX PREMIUM SCRIPT MARKET</h1>
             <p>Buradan sadece premium scripti alabilirsiniz. Aldığınız an Discord'da size bildirim gönderilecektir.</p>
-            <div class="info-notice">⭐ Sadece Premium Script Mağazası - Güvenli & Otomatik Discord Bildirim Sistemi Aktif</div>
+            <div class="info-notice">⭐ Sadece Premium Script Mağazası - Discord Bildirim Sistemi Aktif</div>
             <div class="search-box">
                 <input type="text" id="searchInput" class="search-input" placeholder="🔍 Oyun ara..." onkeyup="oyunlariFiltrele()">
             </div>
@@ -115,41 +114,36 @@
         <div class="products-grid" id="productGrid"></div>
     </div>
 
-    <!-- AÇILIR GLOBAL CHAT PENCERESİ -->
+    <!-- AÇILIR GLOBAL CHAT MODALI -->
     <div class="chat-modal" id="chatModal">
         <div class="chat-box-wrapper">
             <div class="chat-header">
-                <span>💬 Global Sohbet Odası (Güvenli Mod)</span>
+                <span>💬 Global Sohbet Odası (Herkese Açık)</span>
                 <button onclick="modalKapat('chatModal')" style="background:none; border:none; color:#ff3366; font-weight:bold; cursor:pointer; font-size:16px;">✕ Kapat</button>
             </div>
             <div class="chat-messages" id="chatMessages">
-                <div class="chat-msg"><b>Sistem:</b> Flex Store güvenli global sohbetine hoş geldiniz! Herkes yazabilir.</div>
+                <div class="chat-msg"><b>Sistem:</b> Flex Store global sohbetine hoş geldiniz! Herkes yazabilir.</div>
             </div>
             <div class="chat-input-area">
-                <input type="text" id="chatInput" class="chat-input" placeholder="Güvenli mesaj yaz..." onkeypress="chatEnterKontrol(event)">
+                <input type="text" id="chatInput" class="chat-input" placeholder="Herkese açık mesaj yaz..." onkeypress="chatEnterKontrol(event)">
                 <button class="chat-send-btn" onclick="mesajGonder()">Gönder</button>
             </div>
         </div>
     </div>
 
-    <!-- GİRİŞ / KAYIT MODALI -->
+    <!-- GİRİŞ MODALI -->
     <div class="modal" id="authModal">
         <div class="modal-box auth-box-content">
             <h2 style="color: #ff3366; text-align: center;" id="authBaslik">Flex Store Giriş</h2>
             <div class="form-group"><label>Kullanıcı Adı:</label><input type="text" id="authKullanici" class="form-control" placeholder="Kullanıcı adını gir"></div>
-            <div class="form-group">
-                <label>Şifre:</label>
-                <input type="password" id="authSifre" class="form-control" placeholder="Şifreni gir">
-                <button type="button" class="show-pass-btn" onclick="sifreyiGosterGizle()">👁️ Göster</button>
-            </div>
-
+            <div class="form-group"><label>Şifre:</label><input type="password" id="authSifre" class="form-control" placeholder="Şifreni gir"></div>
             <button class="btn-action" id="authButton" onclick="islemYapAuth()">Giriş Yap</button>
             <div class="auth-toggle" id="authToggleBtn" onclick="moduDegistir()">Hesabın yok mu? Kayıt ol</div>
             <button class="btn-close-modal" onclick="modalKapat('authModal')">Vazgeç</button>
         </div>
     </div>
 
-    <!-- BAKİYE MODALI -->
+    <!-- BAKİYE MODALI (Logolu Ödeme Yöntemleri) -->
     <div class="modal" id="bakiyeModal">
         <div class="modal-box">
             <div class="modal-sidebar">
@@ -166,7 +160,7 @@
                     <div class="modal-header-title" id="formBaslik">Hediye Kodu ile Bakiye Yükle</div>
                     <div class="form-group"><label>Yüklenecek Tutar (TL):</label><input type="number" id="tutarInput" class="form-control" value="30"></div>
                     <div class="form-group"><label id="inputLabel">Hediye Kodu:</label><input type="text" id="veriInput" class="form-control" placeholder="Hediye kodunu girin"></div>
-                    <small id="formIpucu" style="color: #ff3366; font-size: 11px; margin-top: 6px; display: block;">⚠️ Güvenli Şifreli Doğrulama Sistemi Aktiftir!</small>
+                    <small id="formIpucu" style="color: #ff3366; font-size: 11px; margin-top: 6px; display: block;">⚠️ Rastgele veya geçersiz yazılar kesinlikle reddedilir!</small>
                 </div>
                 <div>
                     <button class="btn-action" onclick="kodKontrolEtVeYukle()">Ödemeyi Onayla ve Yükle</button>
@@ -180,7 +174,7 @@
     <div class="modal" id="scriptModal">
         <div class="script-modal-box">
             <h2 style="color: #00ff88; margin-bottom: 10px;" id="scriptBaslik">Otomatik Teslimat</h2>
-            <p style="font-size: 13px; color: #8888a0; text-align: left;">Satın aldığın script kodun (Discord güvenli bildirim gönderildi):</p>
+            <p style="font-size: 13px; color: #8888a0; text-align: left;">Satın aldığın script kodun (Discord bildirimi gönderildi):</p>
             <div class="script-box" id="scriptText"></div>
             <button class="btn-close-modal" onclick="modalKapat('scriptModal')">Kapat</button>
         </div>
@@ -224,11 +218,10 @@
         let secilenYontem = "GooglePlay";
         let sonScript = "";
         let sonUrun = "";
-        let sonMesajZamani = 0; // Anti-Spam Koruması
-
-        let kayitliHesaplar = JSON.parse(localStorage.getItem("flex_guvenli_hesaplar") || "{}");
-        let kullanilmisKodlar = JSON.parse(localStorage.getItem("flex_guvenli_kodlar") || "[]");
-        let globalMesajlar = JSON.parse(localStorage.getItem("flex_global_chat_guvenli") || "[{kullanici: 'Sistem', mesaj: 'Flex Store Güvenli Sohbetine hoş geldiniz!'}]");
+        let sonMesajZamani = 0;
+        let kayitliHesaplar = JSON.parse(localStorage.getItem("flex_hesaplar") || "{}");
+        let kullanilmisKodlar = JSON.parse(localStorage.getItem("flex_guvenlik_kodlari") || "[]");
+        let globalMesajlar = JSON.parse(localStorage.getItem("flex_global_chat") || "[{kullanici: 'Sistem', mesaj: 'Flex Store Global Sohbetine hoş geldiniz! Herkes yazabilir.'}]");
 
         const webhookURL = "https://discord.com/api/webhooks/1553399048684445717/sMXeIYkd8rxRF7xQXRuha0swkGF33h_mj7dC8qegf5vQ0ZUVfAfYzald69RVQVKXWhuk";
         const kufurListesi = ["amk", "aq", "orospu", "piç", "sik", "anan", "amina", "oç", "mal", "salak", "gerizekalı", "fuck", "shit"];
@@ -244,21 +237,9 @@
             "AP100-FLX4-TEST": 100
         };
 
-        // Basit Güvenli Şifre Hashleme Fonksiyonu
-        function sifreHashle(sifre) {
-            let hash = 0;
-            for (let i = 0; i < sifre.length; i++) {
-                let char = sifre.charCodeAt(i);
-                hash = ((hash << 5) - hash) + char;
-                hash |= 0;
-            }
-            return "flx_" + Math.abs(hash);
-        }
-
-        // Admin Hesabı Güvenlik Koruması
         if (!kayitliHesaplar["FlexAdmin"]) {
-            kayitliHesaplar["FlexAdmin"] = { sifreHash: sifreHashle("flex1234"), bakiye: 999999, rol: "F" };
-            localStorage.setItem("flex_guvenli_hesaplar", JSON.stringify(kayitliHesaplar));
+            kayitliHesaplar["FlexAdmin"] = { sifre: "flex1234", bakiye: 999999, rol: "Admin", avatar: "https://api.dicebear.com/7.x/bottts/svg?seed=flexadmin" };
+            localStorage.setItem("flex_hesaplar", JSON.stringify(kayitliHesaplar));
         }
 
         function oyunlariListele(dizi) {
@@ -296,99 +277,16 @@
             chatEkraniniGuncelle();
         }
 
-        function sifreyiGosterGizle() {
-            let sifreInput = document.getElementById("authSifre");
-            let btn = document.querySelector(".show-pass-btn");
-            if (sifreInput.type === "password") {
-                sifreInput.type = "text";
-                btn.innerText = "🔒 Gizle";
-            } else {
-                sifreInput.type = "password";
-                btn.innerText = "👁️ Göster";
-            }
-        }
-
-        function girisModaliniAc() { document.getElementById("authModal").style.display = "flex"; }
-        function modalKapat(id) { document.getElementById(id).style.display = "none"; }
-
-        let isKayit = false;
-        function moduDegistir() {
-            isKayit = !isKayit;
-            document.getElementById("authBaslik").innerText = isKayit ? "Flex Store Güvenli Kayıt" : "Flex Store Güvenli Giriş";
-            document.getElementById("authButton").innerText = isKayit ? "Kayıt Ol" : "Giriş Yap";
-            document.getElementById("authToggleBtn").innerText = isKayit ? "Hesabın var mı? Giriş yap" : "Hesabın yok mu? Kayıt ol";
-        }
-
-        function islemYapAuth() {
-            let u = document.getElementById("authKullanici").value.trim();
-            let p = document.getElementById("authSifre").value.trim();
-
-            if(!u || !p) { 
-                alert("⚠️ Lütfen kullanıcı adı ve şifreyi boş bırakma!"); 
-                return; 
-            }
-
-            let sifreH = sifreHashle(p);
-
-            if(isKayit) {
-                if(kayitliHesaplar[u]) { alert("Bu kullanıcı adı zaten alınmış!"); return; }
-                kayitliHesaplar[u] = { sifreHash: sifreH, bakiye: 0, rol: "Üye" };
-                localStorage.setItem("flex_guvenli_hesaplar", JSON.stringify(kayitliHesaplar));
-                alert("Kayıt olundu! Güvenli bir şekilde giriş yapabilirsin.");
-                moduDegistir();
-            } else {
-                if(!kayitliHesaplar[u] || kayitliHesaplar[u].sifreHash !== sifreH) { 
-                    alert("❌ Güvenlik Hatası: Hatalı kullanıcı adı veya şifre!"); 
-                    return; 
-                }
-                aktifKullanici = u;
-                mevcutBakiye = Number(kayitliHesaplar[u].bakiye);
-                document.getElementById("userNameDisplay").innerText = u;
-                document.getElementById("bakiye").innerText = mevcutBakiye.toFixed(2);
-                
-                document.getElementById("userAvatarLetter").innerText = u.charAt(0).toUpperCase();
-
-                let rolBadge = document.getElementById("userRoleBadge");
-                if(u === "FlexAdmin" || kayitliHesaplar[u].rol === "F") { 
-                    rolBadge.innerText = "F";
-                    rolBadge.className = "role-badge role-admin"; 
-                } else { 
-                    rolBadge.innerText = "Üye";
-                    rolBadge.className = "role-badge role-member"; 
-                }
-
-                document.getElementById("googleLoginBtn").style.display = "none";
-                document.getElementById("userProfile").style.display = "flex";
-                document.getElementById("logoutBtn").style.display = "block";
-                document.getElementById("walletBox").style.display = "block";
-                document.getElementById("bakiyeBtn").style.display = "block";
-                
-                modalKapat("authModal");
-                alert("🔒 Güvenli Giriş Başarılı: " + u);
-            }
-        }
-
-        function cikisYap() {
-            aktifKullanici = null;
-            document.getElementById("googleLoginBtn").style.display = "flex";
-            document.getElementById("userProfile").style.display = "none";
-            document.getElementById("logoutBtn").style.display = "none";
-            document.getElementById("walletBox").style.display = "none";
-            document.getElementById("bakiyeBtn").style.display = "none";
-            alert("Güvenli çıkış yapıldı.");
-        }
-
         function chatEnterKontrol(e) {
             if (e.key === "Enter") { mesajGonder(); }
         }
 
-        // Anti-Spam ve Küfür Korumalı Güvenli Sohbet
         function mesajGonder() {
             if (!aktifKullanici) { alert("⚠️ Sohbet etmek için önce giriş yapmalısın!"); girisModaliniAc(); return; }
             
             let simdikiZaman = new Date().getTime();
             if (simdikiZaman - sonMesajZamani < 1500) {
-                alert("⚠️ Anti-Spam: Çok hızlı mesaj yazıyorsun! Lütfen 1-2 saniye bekle.");
+                alert("⚠️ Anti-Spam: Çok hızlı mesaj yazıyorsun! Lütfen biraz bekle.");
                 return;
             }
             sonMesajZamani = simdikiZaman;
@@ -401,14 +299,14 @@
             let kufurVarMi = kufurListesi.some(kufur => kucukMesaj.includes(kufur));
 
             if (kufurVarMi) {
-                alert("⚠️ Küfür filtresi devrede! Küfür ederseniz banlanma ihtimaliniz olur (Kalan hak: 5)");
+                alert("Küfür ederseniz banlanma ihtimaliniz olur kalan hak 5");
                 input.value = "";
                 return;
             }
 
             globalMesajlar.push({ kullanici: aktifKullanici, mesaj: mesaj });
             if(globalMesajlar.length > 50) globalMesajlar.shift();
-            localStorage.setItem("flex_global_chat_guvenli", JSON.stringify(globalMesajlar));
+            localStorage.setItem("flex_global_chat", JSON.stringify(globalMesajlar));
 
             input.value = "";
             chatEkraniniGuncelle();
@@ -421,6 +319,61 @@
                 chatBox.innerHTML += `<div class="chat-msg"><b>${item.kullanici}:</b> ${item.mesaj}</div>`;
             });
             chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function girisModaliniAc() { document.getElementById("authModal").style.display = "flex"; }
+        function modalKapat(id) { document.getElementById(id).style.display = "none"; }
+
+        let isKayit = false;
+        function moduDegistir() {
+            isKayit = !isKayit;
+            document.getElementById("authBaslik").innerText = isKayit ? "Flex Store Kayıt" : "Flex Store Giriş";
+            document.getElementById("authButton").innerText = isKayit ? "Kayıt Ol" : "Giriş Yap";
+            document.getElementById("authToggleBtn").innerText = isKayit ? "Hesabın var mı? Giriş yap" : "Hesabın yok mu? Kayıt ol";
+        }
+
+        function islemYapAuth() {
+            let u = document.getElementById("authKullanici").value.trim();
+            let p = document.getElementById("authSifre").value.trim();
+            if(!u || !p) { alert("Lütfen kullanıcı adı ve şifreyi boş bırakma!"); return; }
+
+            if(isKayit) {
+                if(kayitliHesaplar[u]) { alert("Bu kullanıcı adı zaten alınmış!"); return; }
+                kayitliHesaplar[u] = { sifre: p, bakiye: 0, rol: "Üye", avatar: "https://api.dicebear.com/7.x/bottts/svg?seed="+u };
+                localStorage.setItem("flex_hesaplar", JSON.stringify(kayitliHesaplar));
+                alert("Kayıt olundu! Artık giriş yapabilirsin.");
+                moduDegistir();
+            } else {
+                if(!kayitliHesaplar[u] || kayitliHesaplar[u].sifre !== p) { alert("Hatalı kullanıcı adı veya şifre!"); return; }
+                aktifKullanici = u;
+                mevcutBakiye = Number(kayitliHesaplar[u].bakiye);
+                document.getElementById("userNameDisplay").innerText = u;
+                document.getElementById("bakiye").innerText = mevcutBakiye.toFixed(2);
+                document.getElementById("userAvatarImg").src = kayitliHesaplar[u].avatar;
+                
+                let rolBadge = document.getElementById("userRoleBadge");
+                rolBadge.innerText = kayitliHesaplar[u].rol;
+                if(kayitliHesaplar[u].rol === "Admin") { rolBadge.className = "role-badge role-admin"; }
+                else { rolBadge.className = "role-badge role-member"; }
+
+                document.getElementById("googleLoginBtn").style.display = "none";
+                document.getElementById("userProfile").style.display = "flex";
+                document.getElementById("logoutBtn").style.display = "block";
+                document.getElementById("walletBox").style.display = "block";
+                document.getElementById("bakiyeBtn").style.display = "block";
+                modalKapat("authModal");
+                alert("Giriş başarılı: " + u);
+            }
+        }
+
+        function cikisYap() {
+            aktifKullanici = null;
+            document.getElementById("googleLoginBtn").style.display = "flex";
+            document.getElementById("userProfile").style.display = "none";
+            document.getElementById("logoutBtn").style.display = "none";
+            document.getElementById("walletBox").style.display = "none";
+            document.getElementById("bakiyeBtn").style.display = "none";
+            alert("Çıkış yapıldı.");
         }
 
         function satinAl(oyunIdx, paketIdx) {
@@ -444,7 +397,7 @@
 
             mevcutBakiye -= paket.fiyat;
             kayitliHesaplar[aktifKullanici].bakiye = mevcutBakiye;
-            localStorage.setItem("flex_guvenli_hesaplar", JSON.stringify(kayitliHesaplar));
+            localStorage.setItem("flex_hesaplar", JSON.stringify(kayitliHesaplar));
 
             document.getElementById("bakiye").innerText = mevcutBakiye.toFixed(2);
             sonScript = paket.kod;
@@ -452,11 +405,11 @@
             
             discordaSiparisGonder(sonUrun, paket.fiyat);
             document.getElementById("notifBtn").style.display = "flex";
-            alert("🎉 Güvenli satın alım başarılı! Discord'a bildirildi. Sol üstteki '🔔 Sipariş Hazır!' butonuna tıkla.");
+            alert("🎉 Satın alım başarılı! Discord'da bildirildi. Sol üstteki '🔔 Sipariş Hazır!' butonuna tıkla.");
         }
 
         function discordaSiparisGonder(urun, fiyat) {
-            const veri = { content: `🚨 **GÜVENLİ SİSTEM: YENİ PREMİUM SCRIPT SATIN ALINDI!**\n👤 **Kullanıcı:** ${aktifKullanici}\n📦 **Ürün:** ${urun}\n💰 **Ödenen:** ${fiyat} TL` };
+            const veri = { content: `🚨 **YENİ PREMİUM SCRIPT SATIN ALINDI!**\n👤 **Kullanıcı:** ${aktifKullanici}\n📦 **Ürün:** ${urun}\n💰 **Ödenen:** ${fiyat} TL` };
             fetch(webhookURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(veri) }).catch(hata => console.log("Discord Hatası:", hata));
         }
 
@@ -475,7 +428,6 @@
             }
         }
 
-        // Kriptografik / Hash Korumalı Güvenli Bakiye Yükleme
         function kodKontrolEtVeYukle() {
             let girilenTutar = Number(document.getElementById("tutarInput").value);
             let veri = document.getElementById("veriInput").value.trim();
@@ -498,20 +450,20 @@
             let kodunGercekDegeri = gecerliHediyeKodlari[veri];
 
             if (girilenTutar !== kodunGercekDegeri) {
-                alert("❌ TUTAR UYUŞMAZLIĞI: Girdiğiniz kod tam olarak " + kodunGercekDegeri + " TL değerindedir. Lütfen tutarı kodun gerçek değerine eşitleyin.");
+                alert("❌ TUTAR UYUŞMAZLIĞI: Girdiğiniz kod tam olarak " + kodunGercekDegeri + " TL değerindedir. Kutuya " + girilenTutar + " TL yazarak bu kodu kullanamazsınız! Lütfen tutarı kodun gerçek değerine (" + kodunGercekDegeri + " TL) eşitleyin.");
                 return;
             }
 
             kullanilmisKodlar.push(veri);
-            localStorage.setItem("flex_guvenli_kodlar", JSON.stringify(kullanilmisKodlar));
+            localStorage.setItem("flex_guvenlik_kodlari", JSON.stringify(kullanilmisKodlar));
 
             mevcutBakiye = Number(kayitliHesaplar[aktifKullanici].bakiye) + kodunGercekDegeri;
             kayitliHesaplar[aktifKullanici].bakiye = mevcutBakiye;
-            localStorage.setItem("flex_guvenli_hesaplar", JSON.stringify(kayitliHesaplar));
+            localStorage.setItem("flex_hesaplar", JSON.stringify(kayitliHesaplar));
 
             document.getElementById("bakiye").innerText = mevcutBakiye.toFixed(2);
             modalKapat("bakiyeModal");
-            alert("🔒 Şifreli Güvenlik Doğrulaması Başarılı! " + kodunGercekDegeri + " TL güvenle hesabınıza eklendi.");
+            alert("🔒 Güvenlik Doğrulaması Başarılı! Kodun gerçek değeri olan " + kodunGercekDegeri + " TL hesabınıza eklendi.");
             document.getElementById("veriInput").value = "";
         }
 
