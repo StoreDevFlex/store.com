@@ -36,14 +36,12 @@
         .search-input { width: 100%; padding: 14px 20px; background: #12141c; border: 1px solid rgba(255, 255, 255, 0.15); color: white; border-radius: 12px; font-size: 15px; outline: none; text-align: center; }
         .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 40px; }
         
-        /* ADMIN PANELİ */
         .admin-panel-box { max-width: 100%; margin: 0 auto 40px auto; background: #1a131a; border: 2px solid #ff3366; border-radius: 16px; padding: 20px; display: none; }
         .admin-panel-box h3 { color: #ff3366; margin-bottom: 12px; font-size: 18px; display: flex; align-items: center; gap: 8px; }
         .admin-controls { display: flex; gap: 10px; }
         .admin-input { flex: 1; padding: 10px; background: #000; border: 1px solid rgba(255,255,255,0.2); color: #fff; border-radius: 8px; font-size: 13px; }
         .admin-btn { background: #ff3366; color: #fff; border: none; padding: 10px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px; }
 
-        /* GENİŞLETİLMİŞ GLOBAL CHAT */
         .chat-section { width: 100%; margin: 0 auto; background: #12141c; border: 1px solid rgba(255, 51, 102, 0.3); border-radius: 16px; overflow: hidden; display: none; flex-direction: column; }
         .chat-header { background: #161925; padding: 15px 25px; font-weight: bold; font-size: 16px; color: #ff3366; border-bottom: 1px solid rgba(255, 255, 255, 0.1); display: flex; justify-content: space-between; align-items: center; }
         .chat-messages { height: 350px; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; background: #0a0c12; font-size: 14px; }
@@ -130,7 +128,6 @@
             </div>
         </div>
         
-        <!-- ADMIN PANELİ -->
         <div class="admin-panel-box" id="adminPanelBox">
             <h3>⚡ Admin Yönetim Paneli</h3>
             <div class="admin-controls">
@@ -142,7 +139,6 @@
 
         <div class="products-grid" id="productGrid"></div>
 
-        <!-- GENİŞLETİLMİŞ GLOBAL CHAT ALANI -->
         <div class="chat-section" id="globalChatSection">
             <div class="chat-header">
                 <span>💬 Flex Store Global Sohbet</span>
@@ -170,7 +166,7 @@
             <h2 style="color: #ff3366; text-align: center;" id="authBaslik">Flex Store Giriş</h2>
             <div class="form-group"><label>Kullanıcı Adı:</label><input type="text" id="authKullanici" class="form-control" placeholder="Kullanıcı adını gir"></div>
             <div class="form-group"><label>Şifre:</label><input type="password" id="authSifre" class="form-control" placeholder="Şifreni gir"></div>
-            <div class="form-group" id="avatarGroup" style="display: none;"><label>Profil Fotoğrafı URL (Galeriden link ekle):</label><input type="text" id="authAvatar" class="form-control" placeholder="Örn: https://site.com/resim.png"></div>
+            <div class="form-group" id="avatarGroup" style="display: none;"><label>Profil Fotoğrafı ID veya URL:</label><input type="text" id="authAvatar" class="form-control" placeholder="Örn: flex1 veya resim linki yapıştır"></div>
             <button class="btn-action" id="authButton" onclick="islemYapAuth()">Giriş Yap</button>
             <div class="auth-toggle" id="authToggleBtn" onclick="moduDegistir()">Hesabın yok mu? Kayıt ol</div>
             <button class="btn-close-modal" onclick="modalKapat('authModal')">Vazgeç</button>
@@ -320,31 +316,51 @@
             document.getElementById("avatarGroup").style.display = isKayit ? "block" : "none";
         }
 
+        function avatarCoz(inputDeger) {
+            if (!inputDeger) return null;
+            let temiz = inputDeger.trim();
+            if (!temiz.startsWith("http://") && !temiz.startsWith("https://")) {
+                return `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(temiz)}`;
+            }
+            return temiz;
+        }
+
         function islemYapAuth() {
             let u = document.getElementById("authKullanici").value.trim();
             let p = document.getElementById("authSifre").value.trim();
-            let avatarUrl = document.getElementById("authAvatar").value.trim();
-            if(!u || !p) { alert("Lütfen kullanıcı adı ve şifreyi boş bırakma!"); return; }
+            let avatarInput = document.getElementById("authAvatar").value.trim();
+            
+            if(!u || !p) { 
+                alert("❌ Lütfen kullanıcı adı ve şifreyi boş bırakma!"); 
+                return; 
+            }
 
             if(isKayit) {
-                if(kayitliHesaplar[u]) { alert("Bu kullanıcı adı zaten alınmış!"); return; }
-                let finalAvatar = avatarUrl ? avatarUrl : "https://api.dicebear.com/7.x/bottts/svg?seed="+u;
+                if(kayitliHesaplar.hasOwnProperty(u)) { 
+                    alert("❌ Bu kullanıcı adı zaten alınmış! Lütfen başka bir kullanıcı adı seçin."); 
+                    return; 
+                }
+
+                let finalAvatar = avatarInput ? avatarCoz(avatarInput) : `https://api.dicebear.com/7.x/bottts/svg?seed=${u}`;
                 kayitliHesaplar[u] = { sifre: p, bakiye: 0, rol: "Üye", uyariHakki: 5, askidaMi: false, avatar: finalAvatar };
                 localStorage.setItem("flex_hesaplar", JSON.stringify(kayitliHesaplar));
-                alert("Kayıt olundu! Artık giriş yapabilirsin.");
+                alert("🎉 Başarıyla kayıt olundu! Artık giriş yapabilirsin.");
                 moduDegistir();
             } else {
-                if(!kayitliHesaplar[u] || kayitliHesaplar[u].sifre !== p) { alert("Hatalı kullanıcı adı veya şifre!"); return; }
+                if(!kayitliHesaplar[u] || kayitliHesaplar[u].sifre !== p) { 
+                    alert("❌ Hatalı kullanıcı adı veya şifre!"); 
+                    return; 
+                }
                 
                 if(kayitliHesaplar[u].askidaMi) {
-                    alert("🚨 HESABINIZ ASKIYA ALINMIŞTIR! Çok fazla küfür ettiğiniz için giriş yapamazsınız.");
+                    alert("🚨 HESABINIZ ASKIYA ALINMIŞTIR! Çok fazla kural ihlali yaptığınız için giriş yapamazsınız.");
                     return;
                 }
 
                 aktifKullanici = u;
                 mevcutBakiye = Number(kayitliHesaplar[u].bakiye);
                 document.getElementById("userNameDisplay").innerText = u;
-                document.getElementById("userAvatarImg").src = kayitliHesaplar[u].avatar || "https://api.dicebear.com/7.x/bottts/svg?seed="+u;
+                document.getElementById("userAvatarImg").src = kayitliHesaplar[u].avatar || `https://api.dicebear.com/7.x/bottts/svg?seed=${u}`;
                 bakiyeGuncelleEkranda();
                 document.getElementById("kufurHakInfo").innerText = "Uyarı Hakları: " + (kayitliHesaplar[u].uyariHakki ?? 5) + "/5";
                 
@@ -367,7 +383,7 @@
                 
                 chatEkraniniGuncelle();
                 modalKapat("authModal");
-                alert("Giriş başarılı: " + u);
+                alert("✅ Giriş başarılı: " + u);
             }
         }
 
@@ -453,7 +469,7 @@
                 return;
             }
 
-            let kullaniciAvatar = kayitliHesaplar[aktifKullanici].avatar || "https://api.dicebear.com/7.x/bottts/svg?seed="+aktifKullanici;
+            let kullaniciAvatar = kayitliHesaplar[aktifKullanici].avatar || `https://api.dicebear.com/7.x/bottts/svg?seed=${aktifKullanici}`;
             sohbetKayitlari.push({ kullanıcı: aktifKullanici, avatar: kullaniciAvatar, mesaj: metin });
             if(sohbetKayitlari.length > 50) sohbetKayitlari.shift();
             localStorage.setItem("flex_chat_loglari", JSON.stringify(sohbetKayitlari));
@@ -474,7 +490,7 @@
                 </div>
             `;
             sohbetKayitlari.forEach(item => {
-                let av = item.avatar || "https://api.dicebear.com/7.x/bottts/svg?seed="+item.kullanıcı;
+                let av = item.avatar || `https://api.dicebear.com/7.x/bottts/svg?seed=${item.kullanıcı}`;
                 box.innerHTML += `
                     <div class="chat-msg">
                         <img src="${av}" alt="Avatar">
@@ -544,6 +560,7 @@
 
         function kodKontrolEtVeYukle() {
             let girilenTutar = Number(document.getElementById("tutarInput").value);
+            // .trim() komutu girilen kodun başındaki ve sonundaki tüm boşlukları otomatik olarak siler!
             let veri = document.getElementById("veriInput").value.trim();
 
             if (girilenTutar <= 0 || !veri) { 
