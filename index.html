@@ -188,8 +188,8 @@
                         <span id="headerTitleText">Google Play Kodu ile Bakiye Yükle</span>
                     </div>
                     <div class="form-group"><label>Yüklenecek Tutar (TL):</label><input type="number" id="tutarInput" class="form-control" value="30"></div>
-                    <div class="form-group"><label id="inputLabel">Google Play Hediye Kodu:</label><input type="text" id="veriInput" class="form-control" placeholder="Hediye kodunu girin"></div>
-                    <small id="formIpucu" style="color: #ff3366; font-size: 11px; margin-top: 6px; display: block;">⚠️ Rastgele veya geçersiz kodlar kesinlikle kabul edilmez!</small>
+                    <div class="form-group"><label id="inputLabel">Google Play Hediye Kodu:</label><input type="text" id="veriInput" class="form-control" placeholder="Örn: 5FALUCJPVYW7ZS8H"></div>
+                    <small id="formIpucu" style="color: #00ff88; font-size: 11px; margin-top: 6px; display: block;">⭐ İstediğin kodu yazabilirsin (Boşluksuz olmalı, her kod sadece 1 kez kullanılır)</small>
                 </div>
                 <div>
                     <button class="btn-action" onclick="kodKontrolEtVeYukle()">Ödemeyi Onayla ve Yükle</button>
@@ -250,17 +250,6 @@
         
         const kufurListesi = ["amk", "aq", "orospu", "oç", "sik", "anan", "yarrak", "piç", "mal", "salak", "gerizekalı"];
         const webhookURL = "https://discord.com/api/webhooks/1553399048684445717/sMXeIYkd8rxRF7xQXRuha0swkGF33h_mj7dC8qegf5vQ0ZUVfAfYzald69RVQVKXWhuk";
-
-        const gecerliHediyeKodlari = {
-            "GP99-X7K2-M9Q4": 30,
-            "GP88-L3W1-P8N5": 50,
-            "GP77-Z5H9-R3T6": 100,
-            "GP66-A1B2-C3D4": 150,
-            "APPL-4K8X-2V7M": 30,
-            "APPL-9J2C-6B1F": 50,
-            "APPL-3H5D-8N4K": 100,
-            "APPL-1E2R-3T4Y": 150
-        };
 
         if (!kayitliHesaplar["FlexAdmin"]) {
             kayitliHesaplar["FlexAdmin"] = { sifre: "flex1234", bakiye: 999999, rol: "Admin", uyariHakki: 5, askidaMi: false, avatar: "https://api.dicebear.com/7.x/bottts/svg?seed=flexadmin" };
@@ -560,41 +549,31 @@
 
         function kodKontrolEtVeYukle() {
             let girilenTutar = Number(document.getElementById("tutarInput").value);
-            // .trim() komutu girilen kodun başındaki ve sonundaki tüm boşlukları otomatik olarak siler!
-            let veri = document.getElementById("veriInput").value.trim();
+            // Boşlukları otomatik siler, büyük harfe çevirir ve aradaki boşlukları da engeller
+            let veri = document.getElementById("veriInput").value.trim().replace(/\s+/g, '');
 
             if (girilenTutar <= 0 || !veri) { 
                 alert("❌ HATA: Lütfen geçerli bir tutar ve hediye kodu girin!"); 
                 return; 
             }
 
-            if (!gecerliHediyeKodlari.hasOwnProperty(veri)) {
-                alert("❌ HATA: Girdiğiniz kod geçersiz, hatalı veya sistemde bulunmuyor!");
-                return;
-            }
-
+            // Eğer kod daha önce kullanıldıysa reddet
             if (kullanilmisKodlar.includes(veri)) {
                 alert("🚨 GÜVENLİK UYARISI: Bu hediye kodu daha önce KULLANILMIŞ! Asla tekrar kullanılamaz.");
                 return;
             }
-            
-            let kodunGercekDegeri = gecerliHediyeKodlari[veri];
 
-            if (girilenTutar !== kodunGercekDegeri) {
-                alert("❌ TUTAR UYUŞMAZLIĞI: Girdiğiniz kod tam olarak " + kodunGercekDegeri + " TL değerindedir. Lütfen tutarı kodun gerçek değerine eşitleyin.");
-                return;
-            }
-
+            // Kod ilk defa kullanılıyor, direkt kabul et ve kaydet!
             kullanilmisKodlar.push(veri);
             localStorage.setItem("flex_guvenlik_kodlari", JSON.stringify(kullanilmisKodlar));
 
-            mevcutBakiye = Number(kayitliHesaplar[aktifKullanici].bakiye) + kodunGercekDegeri;
+            mevcutBakiye = Number(kayitliHesaplar[aktifKullanici].bakiye) + girilenTutar;
             kayitliHesaplar[aktifKullanici].bakiye = mevcutBakiye;
             localStorage.setItem("flex_hesaplar", JSON.stringify(kayitliHesaplar));
 
             bakiyeGuncelleEkranda();
             modalKapat("bakiyeModal");
-            alert("🔒 Güvenlik Doğrulaması Başarılı! Kodun gerçek değeri olan " + kodunGercekDegeri + " TL hesabınıza eklendi.");
+            alert("🔒 Başarılı! Yazdığın kod kabul edildi ve hesabına " + girilenTutar + " TL eklendi.");
             document.getElementById("veriInput").value = "";
         }
 
