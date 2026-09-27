@@ -22,7 +22,7 @@
         .btn-bakiye { background: #ff3366; color: white; border: none; padding: 10px 18px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 13px; display: none; }
         .btn-google { background: #ffffff; color: #111111; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 13px; display: flex; align-items: center; gap: 10px; }
         .user-profile-box { display: none; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05); padding: 6px 14px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); font-size: 13px; cursor: pointer; }
-        .user-profile-box img { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #ff3366; object-fit: cover; }
+        .user-profile-box img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #ff3366; object-fit: cover; }
         .role-badge { padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; text-transform: uppercase; }
         .role-admin { background: #ff3366; color: #fff; }
         .role-member { background: rgba(0, 255, 136, 0.1); color: #00ff88; border: 1px solid rgba(0, 255, 136, 0.3); }
@@ -37,21 +37,23 @@
         .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 40px; }
         
         /* ADMIN PANELİ */
-        .admin-panel-box { max-width: 800px; margin: 0 auto 40px auto; background: #1a131a; border: 2px solid #ff3366; border-radius: 16px; padding: 20px; display: none; }
+        .admin-panel-box { max-width: 100%; margin: 0 auto 40px auto; background: #1a131a; border: 2px solid #ff3366; border-radius: 16px; padding: 20px; display: none; }
         .admin-panel-box h3 { color: #ff3366; margin-bottom: 12px; font-size: 18px; display: flex; align-items: center; gap: 8px; }
         .admin-controls { display: flex; gap: 10px; }
         .admin-input { flex: 1; padding: 10px; background: #000; border: 1px solid rgba(255,255,255,0.2); color: #fff; border-radius: 8px; font-size: 13px; }
         .admin-btn { background: #ff3366; color: #fff; border: none; padding: 10px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px; }
 
-        /* GLOBAL CHAT STİLLERİ */
-        .chat-section { max-width: 800px; margin: 0 auto; background: #12141c; border: 1px solid rgba(255, 51, 102, 0.3); border-radius: 16px; overflow: hidden; display: none; flex-direction: column; }
-        .chat-header { background: #161925; padding: 15px 20px; font-weight: bold; font-size: 16px; color: #ff3366; border-bottom: 1px solid rgba(255, 255, 255, 0.1); display: flex; justify-content: space-between; align-items: center; }
-        .chat-messages { height: 250px; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 10px; background: #0a0c12; font-size: 13px; }
-        .chat-msg { background: rgba(255, 255, 255, 0.05); padding: 8px 12px; border-radius: 8px; border-left: 3px solid #ff3366; word-break: break-all; }
-        .chat-msg b { color: #00ff88; margin-right: 6px; }
-        .chat-input-area { display: flex; padding: 12px; background: #12141c; border-top: 1px solid rgba(255, 255, 255, 0.1); gap: 10px; }
-        .chat-input { flex: 1; padding: 10px 14px; background: #000; border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; border-radius: 8px; outline: none; font-size: 13px; }
-        .chat-send-btn { background: #ff3366; color: #fff; border: none; padding: 0 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        /* GENİŞLETİLMİŞ GLOBAL CHAT */
+        .chat-section { width: 100%; margin: 0 auto; background: #12141c; border: 1px solid rgba(255, 51, 102, 0.3); border-radius: 16px; overflow: hidden; display: none; flex-direction: column; }
+        .chat-header { background: #161925; padding: 15px 25px; font-weight: bold; font-size: 16px; color: #ff3366; border-bottom: 1px solid rgba(255, 255, 255, 0.1); display: flex; justify-content: space-between; align-items: center; }
+        .chat-messages { height: 350px; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; background: #0a0c12; font-size: 14px; }
+        .chat-msg { background: rgba(255, 255, 255, 0.04); padding: 10px 15px; border-radius: 10px; border-left: 3px solid #ff3366; display: flex; align-items: center; gap: 12px; word-break: break-all; }
+        .chat-msg img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid #00ff88; }
+        .chat-msg-content { display: flex; flex-direction: column; }
+        .chat-msg-content b { color: #00ff88; font-size: 13px; }
+        .chat-input-area { display: flex; padding: 15px; background: #12141c; border-top: 1px solid rgba(255, 255, 255, 0.1); gap: 12px; }
+        .chat-input { flex: 1; padding: 12px 16px; background: #000; border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; border-radius: 8px; outline: none; font-size: 14px; }
+        .chat-send-btn { background: #ff3366; color: #fff; border: none; padding: 0 25px; border-radius: 8px; font-weight: bold; cursor: pointer; }
 
         .product-card { background: #12141c; border: 1px solid rgba(255, 51, 102, 0.3); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
         .product-img-container { position: relative; width: 100%; height: 160px; background: #0d0e14; overflow: hidden; border-bottom: 1px solid rgba(255, 51, 102, 0.3); }
@@ -78,7 +80,6 @@
         .pay-method-btn { background: #1f2233; color: #fff; border: 1px solid rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 10px; }
         .pay-method-btn.active { background: #ff3366; border-color: #ff3366; }
         
-        /* LOGO BOYUT DÜZENLEMESİ (Kare ve düzgün görünüm için) */
         .pay-method-btn img, .modal-header-title img { width: 24px; height: 24px; min-width: 24px; object-fit: contain; }
 
         .modal-content-area { width: 65%; padding: 35px; display: flex; flex-direction: column; justify-content: space-between; }
@@ -110,7 +111,6 @@
             <button onclick="cikisYap()" style="background:rgba(255,51,102,0.1); border:1px solid rgba(255,51,102,0.3); color:#ff3366; cursor:pointer; font-size:12px; padding:6px 12px; border-radius:8px; font-weight:bold; display:none;" id="logoutBtn">Çıkış</button>
             <div class="notification-bell" id="notifBtn" onclick="bildirimAc()">🔔 Sipariş Hazır! <span>1</span> Görüntüle</div>
             
-            <!-- GÖZ İKONLU BAKİYE KUTUSU -->
             <div class="wallet-box" id="walletBox">
                 Bakiye: <span id="bakiye">0.00</span> TL
                 <button class="eye-btn" id="eyeToggleBtn" onclick="bakiyeyiGizleGoster()" title="Bakiyeyi Gizle/Göster">👁️</button>
@@ -142,28 +142,35 @@
 
         <div class="products-grid" id="productGrid"></div>
 
-        <!-- GLOBAL CHAT ALANI -->
+        <!-- GENİŞLETİLMİŞ GLOBAL CHAT ALANI -->
         <div class="chat-section" id="globalChatSection">
             <div class="chat-header">
                 <span>💬 Flex Store Global Sohbet</span>
-                <span style="font-size: 11px; color: #8888a0;" id="kufurHakInfo">Uyarı Hakları: 5/5</span>
+                <span style="font-size: 12px; color: #8888a0;" id="kufurHakInfo">Uyarı Hakları: 5/5</span>
             </div>
             <div class="chat-messages" id="chatMessages">
-                <div class="chat-msg"><b>Sistem:</b> Global chata hoş geldiniz! Küfür ve argo yasaktır.</div>
+                <div class="chat-msg">
+                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=system" alt="System">
+                    <div class="chat-msg-content">
+                        <b>Sistem</b>
+                        <span>Global chata hoş geldiniz! Küfür ve argo yasaktır.</span>
+                    </div>
+                </div>
             </div>
             <div class="chat-input-area">
-                <input type="text" id="chatInput" class="chat-input" placeholder="Mesaj yaz..." onkeypress="chatEnterKontrol(event)">
+                <input type="text" id="chatInput" class="chat-input" placeholder="Herkesle sohbet et..." onkeypress="chatEnterKontrol(event)">
                 <button class="chat-send-btn" onclick="mesajGonder()">Gönder</button>
             </div>
         </div>
     </div>
 
-    <!-- GİRİŞ MODALI -->
+    <!-- GİRİŞ / KAYIT MODALI -->
     <div class="modal" id="authModal">
         <div class="modal-box auth-box-content">
             <h2 style="color: #ff3366; text-align: center;" id="authBaslik">Flex Store Giriş</h2>
             <div class="form-group"><label>Kullanıcı Adı:</label><input type="text" id="authKullanici" class="form-control" placeholder="Kullanıcı adını gir"></div>
             <div class="form-group"><label>Şifre:</label><input type="password" id="authSifre" class="form-control" placeholder="Şifreni gir"></div>
+            <div class="form-group" id="avatarGroup" style="display: none;"><label>Profil Fotoğrafı URL (Galeriden link ekle):</label><input type="text" id="authAvatar" class="form-control" placeholder="Örn: https://site.com/resim.png"></div>
             <button class="btn-action" id="authButton" onclick="islemYapAuth()">Giriş Yap</button>
             <div class="auth-toggle" id="authToggleBtn" onclick="moduDegistir()">Hesabın yok mu? Kayıt ol</div>
             <button class="btn-close-modal" onclick="modalKapat('authModal')">Vazgeç</button>
@@ -216,10 +223,10 @@
                 mod2: "🌐 Public (Yakında)",
                 isComingSoon: false,
                 paketler: [
-                    { ad: "Anti Looser Duels", fiyat: 30, kod: 'loadstring(game:HttpGet("https://pastebin.com/raw/1uQP1jX0"))()' }, 
-                    { ad: "Ego Hub Duels", fiyat: 50, kod: 'loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/8273322905877bb11fbc66b9de390b7e.lua"))()' }, 
-                    { ad: "Lurk Hub Duels", fiyat: 100, kod: 'loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/fd920d2c87a95ee573d6fde239b63d15.lua"))()' },
-                    { ad: "Aurora / Aezy Auto Duel", fiyat: 150, kod: 'loadstring(game:HttpGet("https://pastebin.com/raw/cK4pSfKJ"))()' }
+                    { ad: "1 Günlük", fiyat: 30, kod: 'loadstring(game:HttpGet("https://pastebin.com/raw/1uQP1jX0"))()' }, 
+                    { ad: "Haftalık", fiyat: 50, kod: 'loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/8273322905877bb11fbc66b9de390b7e.lua"))()' }, 
+                    { ad: "Aylık", fiyat: 100, kod: 'loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/fd920d2c87a95ee573d6fde239b63d15.lua"))()' },
+                    { ad: "Ömür Boyu VIP", fiyat: 150, kod: 'loadstring(game:HttpGet("https://pastebin.com/raw/cK4pSfKJ"))()' }
                 ] 
             },
             { 
@@ -310,16 +317,19 @@
             document.getElementById("authBaslik").innerText = isKayit ? "Flex Store Kayıt" : "Flex Store Giriş";
             document.getElementById("authButton").innerText = isKayit ? "Kayıt Ol" : "Giriş Yap";
             document.getElementById("authToggleBtn").innerText = isKayit ? "Hesabın var mı? Giriş yap" : "Hesabın yok mu? Kayıt ol";
+            document.getElementById("avatarGroup").style.display = isKayit ? "block" : "none";
         }
 
         function islemYapAuth() {
             let u = document.getElementById("authKullanici").value.trim();
             let p = document.getElementById("authSifre").value.trim();
+            let avatarUrl = document.getElementById("authAvatar").value.trim();
             if(!u || !p) { alert("Lütfen kullanıcı adı ve şifreyi boş bırakma!"); return; }
 
             if(isKayit) {
                 if(kayitliHesaplar[u]) { alert("Bu kullanıcı adı zaten alınmış!"); return; }
-                kayitliHesaplar[u] = { sifre: p, bakiye: 0, rol: "Üye", uyariHakki: 5, askidaMi: false, avatar: "https://api.dicebear.com/7.x/bottts/svg?seed="+u };
+                let finalAvatar = avatarUrl ? avatarUrl : "https://api.dicebear.com/7.x/bottts/svg?seed="+u;
+                kayitliHesaplar[u] = { sifre: p, bakiye: 0, rol: "Üye", uyariHakki: 5, askidaMi: false, avatar: finalAvatar };
                 localStorage.setItem("flex_hesaplar", JSON.stringify(kayitliHesaplar));
                 alert("Kayıt olundu! Artık giriş yapabilirsin.");
                 moduDegistir();
@@ -334,6 +344,7 @@
                 aktifKullanici = u;
                 mevcutBakiye = Number(kayitliHesaplar[u].bakiye);
                 document.getElementById("userNameDisplay").innerText = u;
+                document.getElementById("userAvatarImg").src = kayitliHesaplar[u].avatar || "https://api.dicebear.com/7.x/bottts/svg?seed="+u;
                 bakiyeGuncelleEkranda();
                 document.getElementById("kufurHakInfo").innerText = "Uyarı Hakları: " + (kayitliHesaplar[u].uyariHakki ?? 5) + "/5";
                 
@@ -442,7 +453,8 @@
                 return;
             }
 
-            sohbetKayitlari.push({ kullanıcı: aktifKullanici, mesaj: metin });
+            let kullaniciAvatar = kayitliHesaplar[aktifKullanici].avatar || "https://api.dicebear.com/7.x/bottts/svg?seed="+aktifKullanici;
+            sohbetKayitlari.push({ kullanıcı: aktifKullanici, avatar: kullaniciAvatar, mesaj: metin });
             if(sohbetKayitlari.length > 50) sohbetKayitlari.shift();
             localStorage.setItem("flex_chat_loglari", JSON.stringify(sohbetKayitlari));
 
@@ -452,9 +464,26 @@
 
         function chatEkraniniGuncelle() {
             let box = document.getElementById("chatMessages");
-            box.innerHTML = `<div class="chat-msg"><b>Sistem:</b> Global chata hoş geldiniz! Küfür ve argo yasaktır.</div>`;
+            box.innerHTML = `
+                <div class="chat-msg">
+                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=system" alt="System">
+                    <div class="chat-msg-content">
+                        <b>Sistem</b>
+                        <span>Global chata hoş geldiniz! Küfür ve argo yasaktır.</span>
+                    </div>
+                </div>
+            `;
             sohbetKayitlari.forEach(item => {
-                box.innerHTML += `<div class="chat-msg"><b>${item.kullanıcı}:</b> ${item.mesaj}</div>`;
+                let av = item.avatar || "https://api.dicebear.com/7.x/bottts/svg?seed="+item.kullanıcı;
+                box.innerHTML += `
+                    <div class="chat-msg">
+                        <img src="${av}" alt="Avatar">
+                        <div class="chat-msg-content">
+                            <b>${item.kullanıcı}</b>
+                            <span>${item.mesaj}</span>
+                        </div>
+                    </div>
+                `;
             });
             box.scrollTop = box.scrollHeight;
         }
