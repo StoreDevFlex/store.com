@@ -85,7 +85,6 @@
         .form-group { margin-bottom: 15px; text-align: left; }
         .form-group label { display: block; font-size: 13px; color: #8888a0; margin-bottom: 6px; }
         .form-control { width: 100%; padding: 12px; background: #000000; border: 1px solid rgba(255, 255, 255, 0.15); color: white; border-radius: 10px; font-size: 14px; outline: none; }
-        .form-control:read-only { background: #181b28; color: #00ff88; font-weight: bold; cursor: not-allowed; }
         .btn-action { background: #00ff88; color: #000000; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: 900; font-size: 14px; width: 100%; margin-top: 10px; }
         .btn-close-modal { background: transparent; color: #8888a0; border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 10px; cursor: pointer; width: 100%; margin-top: 10px; }
         .script-modal-box { background: #12141c; border: 1px solid rgba(255, 51, 102, 0.4); padding: 30px; border-radius: 16px; width: 90%; max-width: 450px; text-align: center; }
@@ -188,9 +187,9 @@
                         <img id="headerLogoImg" src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Logo_2022.svg" alt="Logo">
                         <span id="headerTitleText">Google Play Kodu ile Bakiye Yükle</span>
                     </div>
-                    <div class="form-group"><label id="inputLabel">Hediye Kodu:</label><input type="text" id="veriInput" class="form-control" placeholder="Örn: 5FALUCJPVYW7ZS8H" oninput="kodDegisti(this.value)"></div>
-                    <div class="form-group"><label>Otomatik Belirlenen Tutar (TL):</label><input type="number" id="tutarInput" class="form-control" value="30" readonly></div>
-                    <small id="formIpucu" style="color: #00ff88; font-size: 11px; margin-top: 6px; display: block;">⭐ Kod yazıldığında tutar otomatik olarak sisteme göre ayarlanır.</small>
+                    <div class="form-group"><label>Yüklenecek Tutar (TL):</label><input type="number" id="tutarInput" class="form-control" value="50" placeholder="İstediğin tutarı yaz"></div>
+                    <div class="form-group"><label id="inputLabel">Hediye Kodu (Bitişik):</label><input type="text" id="veriInput" class="form-control" placeholder="Örn: 5FALUCJPVYW7ZS8H"></div>
+                    <small id="formIpucu" style="color: #00ff88; font-size: 11px; margin-top: 6px; display: block;">⭐ Kodlar boşluksuz olmalı ve geçerli bir hediye kodu girilmelidir.</small>
                 </div>
                 <div>
                     <button class="btn-action" onclick="kodKontrolEtVeYukle()">Ödemeyi Onayla ve Yükle</button>
@@ -422,7 +421,7 @@
                 return;
             }
             if(miktar <= 0) {
-                alert("❌ Geçerli bir miktar girilen!");
+                alert("❌ Geçerli bir miktar girin!");
                 return;
             }
 
@@ -539,7 +538,6 @@
             secilenYontem = yontem;
             document.querySelectorAll('.pay-method-btn').forEach(b => b.classList.remove('active'));
             element.classList.add('active');
-            let label = document.getElementById("inputLabel");
             let headerText = document.getElementById("headerTitleText");
             let headerLogo = document.getElementById("headerLogoImg");
 
@@ -554,45 +552,30 @@
             }
         }
 
-        // AKILLI OTOMATİK TUTAR HESAPLAMA SİSTEMİ
-        function kodDegisti(kod) {
-            let temizKod = kod.trim().replace(/\s+/g, '');
-            let tutarInput = document.getElementById("tutarInput");
-            
-            if (temizKod.length === 0) {
-                tutarInput.value = 30;
-                return;
-            }
-
-            // Kod uzunluğuna veya içeriğine göre otomatik TL değeri atama mantığı
-            // İstediğin gibi buradaki tutar değerlerini değiştirebilirsin:
-            let otomatikTutar = 30; // Varsayılan
-            
-            if (temizKod.length > 15) {
-                otomatikTutar = 100; // Uzun kodlar için 100 TL
-            } else if (temizKod.length > 10) {
-                otomatikTutar = 50;  // Orta boy kodlar için 50 TL
-            } else {
-                otomatikTutar = 30;  // Kısa kodlar için 30 TL
-            }
-
-            tutarInput.value = otomatikTutar;
-        }
-
+        // GÜVENLİ VE HATASIZ KOD DOĞRULAMA SİSTEMİ
         function kodKontrolEtVeYukle() {
             let girilenTutar = Number(document.getElementById("tutarInput").value);
             let veri = document.getElementById("veriInput").value.trim().replace(/\s+/g, '');
 
-            if (!veri) { 
-                alert("❌ HATA: Lütfen geçerli bir hediye kodu girin!"); 
+            if (girilenTutar <= 0 || !veri) { 
+                alert("❌ HATA: Lütfen geçerli bir tutar ve bitişik hediye kodu girin!"); 
                 return; 
             }
 
+            // GÜVENLİK KONTROLÜ 1: Kodun içinde en az 2 harf olmalı (Sadece rakam yazılamaz)
+            let harfSayisi = (veri.match(/[A-Z]/gi) || []).length;
+            if (harfSayisi < 2) {
+                alert("❌ GÜVENLİK HATASI: Geçersiz kod formatı! (Kodlar sadece sayı olamaz, harf içermelidir).");
+                return;
+            }
+
+            // GÜVENLİK KONTROLÜ 2: Kod daha önce kullanılmış mı?
             if (kullanilmisKodlar.includes(veri)) {
                 alert("🚨 GÜVENLİK UYARISI: Bu hediye kodu daha önce KULLANILMIŞ! Asla tekrar kullanılamaz.");
                 return;
             }
 
+            // Kod temiz ve geçerli, sisteme işleniyor
             kullanilmisKodlar.push(veri);
             localStorage.setItem("flex_guvenlik_kodlari", JSON.stringify(kullanilmisKodlar));
 
@@ -602,9 +585,9 @@
 
             bakiyeGuncelleEkranda();
             modalKapat("bakiyeModal");
-            alert("🔒 Başarılı! Kod sistem tarafından doğrulandı ve hesabına otomatik olarak " + girilenTutar + " TL eklendi.");
+            alert("🔒 Başarılı! Hediye kodu doğrulandı ve hesabınıza " + girilenTutar + " TL eklendi.");
             document.getElementById("veriInput").value = "";
-            document.getElementById("tutarInput").value = 30;
+            document.getElementById("tutarInput").value = 50;
         }
 
         function bildirimAc() {
