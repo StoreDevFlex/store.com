@@ -43,7 +43,7 @@
         .chat-input { flex: 1; padding: 10px 15px; background: #000; border: 1px solid rgba(255,255,255,0.2); color: #fff; border-radius: 8px; outline: none; font-size: 13px; }
         .chat-send-btn { background: #ff3366; color: #fff; border: none; padding: 0 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
 
-        /* ROBOT KORUMA KUTUSU STİLİ */
+        /* ROBOT KORUMASI */
         .captcha-box { background: #000000; border: 1px dashed rgba(255, 51, 102, 0.5); padding: 10px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
         .captcha-code { font-family: monospace; font-size: 18px; font-weight: bold; color: #00ff88; letter-spacing: 4px; background: #1a1d2d; padding: 5px 12px; border-radius: 6px; text-decoration: line-through; }
 
@@ -280,7 +280,6 @@
             oyunlariListele(filtrelenmis);
         }
 
-        // KAPSAMLI ROBOT KODU ÜRETİCİSİ (CAPTCHA)
         function captchaYenile() {
             let rastgeleSayi = Math.floor(1000 + Math.random() * 9000);
             aktifCaptchaKodu = rastgeleSayi.toString();
@@ -314,7 +313,6 @@
                 return; 
             }
 
-            // Robot Doğrulama Kontrolü
             if (girilenCaptcha !== aktifCaptchaKodu) {
                 alert("🤖 GÜVENLİK UYARISI: Robot doğrulama kodu hatalı! Lütfen doğru kodu girin.");
                 captchaYenile();
@@ -354,7 +352,10 @@
                 document.getElementById("logoutBtn").style.display = "block";
                 document.getElementById("walletBox").style.display = "block";
                 document.getElementById("bakiyeBtn").style.display = "block";
+                
+                // DÜZELTME BURADAYDI: Giriş başarılı olunca modal kapanıyor!
                 modalKapat("authModal");
+                
                 alert("Giriş başarılı: " + u);
             }
         }
@@ -434,7 +435,7 @@
             
             discordaSiparisGonder(sonUrun, paket.fiyat);
             document.getElementById("notifBtn").style.display = "flex";
-            alert("🎉 Satın alım başarılı! Discord'a bildirildi. Sol üstteki '🔔 Sipariş Hazır!' butonuna tıkla.");
+            alert("🎉 Satın alım başarılı! Discord'da bildirildi. Sol üstteki '🔔 Sipariş Hazır!' butonuna tıkla.");
         }
 
         function discordaSiparisGonder(urun, fiyat) {
